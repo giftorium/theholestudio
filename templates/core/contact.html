@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Contact — Amir Parsa{% endblock %}
+
+{% block extra_css %}
+  .contact-page {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 8rem 3rem;
+  }
+  .contact-inner { max-width: 1200px; width: 100%; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: start;
+  }
+  .contact-left { padding-top: 1rem; }
+  .contact-heading {
+    font-family: var(--display);
+    font-size: clamp(2.8rem, 5vw, 5rem); font-weight: 300; line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+  .contact-heading em { font-style: italic; color: var(--muted); }
+  .contact-sub { color: var(--muted); font-size: 0.9rem; line-height: 1.9; max-width: 360px; }
+
+  .field { margin-bottom: 2rem; }
+  .field label {
+    display: block; font-size: 0.6rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
+  }
+  .field input, .field textarea {
+    width: 100%; background: transparent; border: none;
+    border-bottom: 1px solid var(--border);
+    color: var(--text); font-family: var(--body); font-size: 0.92rem;
+    font-weight: 300; padding: 0.75rem 0; outline: none;
+    transition: border-color 0.2s; resize: none;
+  }
+  .field textarea { height: 120px; }
+  .field input:focus, .field textarea:focus { border-color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .contact-page { padding: 8rem 1.5rem 5rem; align-items: flex-start; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3.5rem; }
+  }
+{% endblock %}
+
+{% block content %}
+
+<section class="contact-page">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <p class="section-label">Contact</p>
+      <h1 class="contact-heading">Let's work<br><em>together</em></h1>
+      <p class="contact-sub">Available for light design commissions, spatial installations, and event curation. Get in touch and let's build something.</p>
+    </div>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="field">
+        <label for="id_name">Name</label>
+        <input type="text" id="id_name" name="name" value="{{ form.name.value|default:'' }}" required>
+      </div>
+      <div class="field">
+        <label for="id_email">Email</label>
+        <input type="email" id="id_email" name="email" value="{{ form.email.value|default:'' }}" required>
+      </div>
+      <div class="field">
+        <label for="id_message">Message</label>
+        <textarea id="id_message" name="message" required>{{ form.message.value|default:'' }}</textarea>
+      </div>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

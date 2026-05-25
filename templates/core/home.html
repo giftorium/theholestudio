@@ -1,300 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amir Parsa — Light Designer & Curator</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+{% extends "base.html" %}
 
-    :root {
-      --bg: #0d0d0d;
-      --surface: #141414;
-      --border: #242424;
-      --text: #f0ede8;
-      --muted: #666;
-      --accent: #c9a96e;
-      --display: 'Cormorant Garamond', serif;
-      --body: 'Inter', sans-serif;
-    }
+{% block title %}Amir Parsa — Light Designer & Curator{% endblock %}
 
-    html { scroll-behavior: smooth; }
+{% block extra_css %}
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: flex; align-items: flex-end;
+    padding: 3rem; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 40%, rgba(201,169,110,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 800px; padding-bottom: 2rem; }
+  .hero-eyebrow {
+    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--accent); }
+  .hero-title {
+    font-family: var(--display);
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 300; line-height: 1; letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+  }
+  .hero-title em { font-style: italic; color: var(--muted); }
+  .hero-sub {
+    font-size: 0.9rem; color: var(--muted); letter-spacing: 0.05em;
+    max-width: 380px; line-height: 1.9;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 3rem; right: 3rem;
+    font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted); writing-mode: vertical-rl;
+  }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--body);
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 1.7;
-    }
+  /* ── ABOUT ── */
+  #about { padding: 9rem 3rem; }
+  .about-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start;
+  }
+  .about-heading {
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300; line-height: 1.1;
+  }
+  .about-heading em { font-style: italic; color: var(--muted); }
+  .about-text { color: var(--muted); font-size: 0.92rem; line-height: 2; }
+  .about-text p + p { margin-top: 1.25rem; }
+  .about-roles { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.65rem; }
+  .about-role {
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); border-left: 1px solid var(--border); padding-left: 1rem;
+  }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.5rem 3rem;
-      background: rgba(13,13,13,0.88);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s;
-    }
-    nav.scrolled { border-color: var(--border); }
-    .nav-logo {
-      font-family: var(--display);
-      font-size: 1rem; font-weight: 400; letter-spacing: 0.12em;
-      text-decoration: none; color: var(--text);
-    }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--muted); text-decoration: none; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text); }
+  /* ── FEATURED EVENT ── */
+  #featured {
+    padding: 0 3rem 9rem;
+  }
+  .featured-inner { max-width: 1200px; margin: 0 auto; }
+  .event-card {
+    border: 1px solid var(--border);
+    padding: 4rem; display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    gap: 1.25rem 4rem;
+    align-items: start;
+    transition: border-color 0.3s;
+  }
+  .event-card:hover { border-color: #444; }
+  .event-card-year {
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--accent); grid-column: 1; grid-row: 1;
+  }
+  .event-card-name {
+    font-family: var(--display);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 300; line-height: 0.95;
+    grid-column: 1; grid-row: 2;
+  }
+  .event-card-tagline {
+    color: var(--muted); font-size: 0.88rem; line-height: 1.8;
+    max-width: 480px; grid-column: 1; grid-row: 3;
+  }
+  .event-card-link {
+    grid-column: 2; grid-row: 1 / 4;
+    align-self: center;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s;
+    writing-mode: vertical-rl;
+  }
+  .event-card-link:hover { color: var(--text); }
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh; display: flex; align-items: flex-end;
-      padding: 3rem; position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 70% 40%, rgba(201,169,110,0.04) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .hero-content { position: relative; z-index: 1; max-width: 800px; padding-bottom: 2rem; }
-    .hero-eyebrow {
-      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 2rem;
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .hero-eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--accent); }
-    .hero-title {
-      font-family: var(--display);
-      font-size: clamp(3.5rem, 9vw, 8rem);
-      font-weight: 300; line-height: 1; letter-spacing: -0.01em;
-      margin-bottom: 2rem;
-    }
-    .hero-title em { font-style: italic; color: var(--muted); }
-    .hero-sub {
-      font-size: 0.85rem; color: var(--muted); letter-spacing: 0.08em;
-      max-width: 380px; line-height: 1.8;
-    }
-    .hero-scroll {
-      position: absolute; bottom: 3rem; right: 3rem;
-      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--muted); writing-mode: vertical-rl;
-    }
+  @media (max-width: 900px) {
+    #about { padding: 6rem 1.5rem; }
+    #featured { padding: 0 1.5rem 6rem; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .event-card { grid-template-columns: 1fr; padding: 2.5rem; }
+    .event-card-link { writing-mode: horizontal-tb; grid-column: 1; grid-row: 4; }
+    .hero { padding: 1.5rem; }
+    .hero-scroll { display: none; }
+  }
+{% endblock %}
 
-    /* ── SHARED ── */
-    .section-label {
-      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 3rem;
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .section-label::after { content: ''; display: block; width: 2.5rem; height: 1px; background: var(--accent); opacity: 0.5; }
+{% block content %}
 
-    /* ── ABOUT ── */
-    #about { padding: 9rem 3rem; }
-    .about-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start;
-    }
-    .about-heading {
-      font-family: var(--display);
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 300; line-height: 1.1;
-    }
-    .about-heading em { font-style: italic; color: var(--muted); }
-    .about-text { color: var(--muted); font-size: 0.9rem; line-height: 2; }
-    .about-text p + p { margin-top: 1.25rem; }
-    .about-roles {
-      margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.5rem;
-    }
-    .about-role {
-      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
-      border-left: 1px solid var(--border); padding-left: 1rem;
-    }
-
-    /* ── EVENT ── */
-    #event {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 9rem 3rem;
-    }
-    .event-inner { max-width: 1200px; margin: 0 auto; }
-    .event-name {
-      font-family: var(--display);
-      font-size: clamp(5rem, 15vw, 13rem);
-      font-weight: 300; line-height: 0.88; letter-spacing: -0.02em;
-      margin-bottom: 5rem; color: var(--text);
-    }
-    .event-meta {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 2rem; margin-bottom: 4rem; padding-bottom: 4rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .meta-label {
-      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 0.5rem; display: block;
-    }
-    .meta-value { font-family: var(--display); font-size: 1.05rem; }
-    .event-description { max-width: 680px; color: var(--muted); font-size: 0.9rem; line-height: 2; }
-
-    /* ── ARTISTS ── */
-    #artists { padding: 9rem 3rem; }
-    .artists-inner { max-width: 1200px; margin: 0 auto; }
-    .artists-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 3rem;
-    }
-    .artist-card { }
-    .artist-photo {
-      width: 100%; aspect-ratio: 3/4; object-fit: cover;
-      filter: grayscale(30%); margin-bottom: 1.25rem;
-      transition: filter 0.3s;
-    }
-    .artist-card:hover .artist-photo { filter: grayscale(0%); }
-    .artist-photo-placeholder {
-      width: 100%; aspect-ratio: 3/4; background: var(--surface);
-      border: 1px solid var(--border); margin-bottom: 1.25rem;
-    }
-    .artist-name { font-family: var(--display); font-size: 1.3rem; font-weight: 400; margin-bottom: 0.25rem; }
-    .artist-role { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
-    .artist-bio { font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
-
-    /* ── GALLERY ── */
-    #gallery { padding: 9rem 3rem; }
-    .gallery-inner { max-width: 1400px; margin: 0 auto; }
-    .masonry {
-      column-count: 3; column-gap: 0.75rem;
-    }
-    .masonry-item {
-      break-inside: avoid; margin-bottom: 0.75rem;
-      overflow: hidden; cursor: pointer; position: relative;
-    }
-    .masonry-item img {
-      width: 100%; display: block;
-      filter: brightness(0.85);
-      transition: filter 0.4s ease, transform 0.4s ease;
-    }
-    .masonry-item:hover img { filter: brightness(1); transform: scale(1.02); }
-
-    /* ── VIDEOS ── */
-    #videos {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 9rem 3rem;
-    }
-    .videos-inner { max-width: 1200px; margin: 0 auto; }
-    .videos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem; }
-    .video-wrap { }
-    .video-embed { aspect-ratio: 16/9; overflow: hidden; background: #000; }
-    .video-embed iframe { width: 100%; height: 100%; border: none; }
-    .video-title { font-family: var(--display); font-size: 1rem; color: var(--muted); margin-top: 1rem; }
-
-    /* ── CONTACT ── */
-    #contact { padding: 9rem 3rem; }
-    .contact-inner { max-width: 680px; margin: 0 auto; }
-    .contact-heading {
-      font-family: var(--display);
-      font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; margin-bottom: 0.75rem;
-    }
-    .contact-sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 3.5rem; }
-    .field { margin-bottom: 2rem; }
-    .field label {
-      display: block; font-size: 0.6rem; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
-    }
-    .field input, .field textarea {
-      width: 100%; background: transparent; border: none;
-      border-bottom: 1px solid var(--border);
-      color: var(--text); font-family: var(--body); font-size: 0.9rem;
-      font-weight: 300; padding: 0.75rem 0; outline: none;
-      transition: border-color 0.2s; resize: none;
-    }
-    .field textarea { height: 110px; }
-    .field input:focus, .field textarea:focus { border-color: var(--accent); }
-    .btn {
-      margin-top: 1rem; padding: 0.9rem 3rem;
-      border: 1px solid var(--border); background: transparent;
-      color: var(--text); font-family: var(--body); font-size: 0.65rem;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      cursor: pointer; transition: all 0.25s;
-    }
-    .btn:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 2.5rem 3rem; border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-      color: var(--muted); font-size: 0.7rem; letter-spacing: 0.1em;
-    }
-
-    /* ── MESSAGES ── */
-    .toast {
-      position: fixed; bottom: 2rem; right: 2rem; z-index: 300;
-      background: var(--surface); border: 1px solid var(--accent);
-      color: var(--accent); padding: 1rem 1.5rem;
-      font-size: 0.75rem; letter-spacing: 0.1em;
-    }
-
-    /* ── LIGHTBOX ── */
-    .lightbox {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.96); z-index: 200;
-      align-items: center; justify-content: center;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
-    .lightbox-close {
-      position: absolute; top: 1.5rem; right: 2rem;
-      color: var(--muted); font-size: 1.8rem; background: none; border: none;
-      cursor: pointer; line-height: 1; transition: color 0.2s;
-    }
-    .lightbox-close:hover { color: var(--text); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1.25rem 1.5rem; }
-      .nav-links { display: none; }
-      #about, #event, #artists, #gallery, #videos, #contact { padding: 6rem 1.5rem; }
-      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .masonry { column-count: 2; }
-      .videos-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; }
-    }
-    @media (max-width: 500px) {
-      .masonry { column-count: 1; }
-      .hero { padding: 1.5rem; }
-      .hero-scroll { display: none; }
-    }
-  </style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav id="nav">
-  <a href="#" class="nav-logo">Amir Parsa</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#event">Feedback</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- MESSAGES -->
-{% if messages %}
-  {% for msg in messages %}
-    <div class="toast">{{ msg }}</div>
-  {% endfor %}
-{% endif %}
-
-<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
     <p class="hero-eyebrow">Light Designer &amp; Curator</p>
@@ -304,7 +120,6 @@
   <span class="hero-scroll">Scroll to explore</span>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="about-inner">
     <div>
@@ -326,159 +141,18 @@
   </div>
 </section>
 
-<!-- EVENT -->
 {% if event %}
-<section id="event">
-  <div class="event-inner">
+<section id="featured">
+  <div class="featured-inner">
     <p class="section-label">Featured Event</p>
-    <h2 class="event-name">{{ event.name }}</h2>
-    <div class="event-meta">
-      {% if event.date %}
-      <div>
-        <span class="meta-label">Date</span>
-        <span class="meta-value">{{ event.date|date:"F Y" }}</span>
-      </div>
-      {% endif %}
-      {% if event.location %}
-      <div>
-        <span class="meta-label">Location</span>
-        <span class="meta-value">{{ event.location }}</span>
-      </div>
-      {% endif %}
-      {% if event.tagline %}
-      <div>
-        <span class="meta-label">Concept</span>
-        <span class="meta-value">{{ event.tagline }}</span>
-      </div>
-      {% endif %}
-    </div>
-    {% if event.description %}
-    <p class="event-description">{{ event.description }}</p>
-    {% endif %}
-  </div>
-</section>
-
-<!-- ARTISTS -->
-{% if event.artists.all %}
-<section id="artists">
-  <div class="artists-inner">
-    <p class="section-label">Artists</p>
-    <div class="artists-grid">
-      {% for artist in event.artists.all %}
-      <div class="artist-card">
-        {% if artist.photo %}
-          <img src="{{ artist.photo.url }}" alt="{{ artist.name }}" class="artist-photo">
-        {% else %}
-          <div class="artist-photo-placeholder"></div>
-        {% endif %}
-        <h3 class="artist-name">{{ artist.name }}</h3>
-        <p class="artist-role">{{ artist.role }}</p>
-        {% if artist.bio %}<p class="artist-bio">{{ artist.bio }}</p>{% endif %}
-      </div>
-      {% endfor %}
+    <div class="event-card">
+      <span class="event-card-year">{% if event.date %}{{ event.date|date:"Y" }}{% else %}2024{% endif %}</span>
+      <h2 class="event-card-name">{{ event.name }}</h2>
+      <p class="event-card-tagline">{{ event.tagline }}</p>
+      <a href="/feedback/" class="event-card-link">Explore the Event &rarr;</a>
     </div>
   </div>
 </section>
 {% endif %}
 
-<!-- GALLERY -->
-{% if event.photos.all %}
-<section id="gallery">
-  <div class="gallery-inner">
-    <p class="section-label">Gallery</p>
-    <div class="masonry">
-      {% for photo in event.photos.all %}
-      <div class="masonry-item" onclick="openLightbox('{{ photo.image.url }}')">
-        <img src="{{ photo.image.url }}" alt="{{ photo.caption }}" loading="lazy">
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
-
-<!-- VIDEOS -->
-{% if event.videos.all %}
-<section id="videos">
-  <div class="videos-inner">
-    <p class="section-label">Film</p>
-    <div class="videos-grid">
-      {% for video in event.videos.all %}
-      <div class="video-wrap">
-        <div class="video-embed">
-          <iframe src="{{ video.embed_url }}" allowfullscreen allow="autoplay; encrypted-media"></iframe>
-        </div>
-        <p class="video-title">{{ video.title }}</p>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
-
-{% endif %}{# end event #}
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-inner">
-    <p class="section-label">Contact</p>
-    <h2 class="contact-heading">Let's work<br><em>together</em></h2>
-    <p class="contact-sub">Available for light design commissions, installations, and event curation.</p>
-    <form method="POST" action="#contact">
-      {% csrf_token %}
-      <div class="field">
-        <label for="id_name">Name</label>
-        <input type="text" id="id_name" name="name" value="{{ form.name.value|default:'' }}" required>
-      </div>
-      <div class="field">
-        <label for="id_email">Email</label>
-        <input type="email" id="id_email" name="email" value="{{ form.email.value|default:'' }}" required>
-      </div>
-      <div class="field">
-        <label for="id_message">Message</label>
-        <textarea id="id_message" name="message" required>{{ form.message.value|default:'' }}</textarea>
-      </div>
-      <button type="submit" class="btn">Send Message</button>
-    </form>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <span>Amir Parsa</span>
-  <span>Light Designer &amp; Curator</span>
-  <span>&copy; {% now "Y" %}</span>
-</footer>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-  <img id="lightbox-img" src="" alt="">
-</div>
-
-<script>
-  // Nav scroll effect
-  window.addEventListener('scroll', () => {
-    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
-  });
-
-  // Lightbox
-  function openLightbox(src) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-  // Auto-dismiss toast
-  setTimeout(() => {
-    document.querySelectorAll('.toast').forEach(t => t.remove());
-  }, 4000);
-</script>
-
-</body>
-</html>
+{% endblock %}
