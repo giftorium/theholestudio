@@ -21,6 +21,7 @@ env/
 local_settings.py
 media/
 staticfiles/
+photos/
 
 # Environment variables
 .env
