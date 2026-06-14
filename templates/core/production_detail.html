@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ production.title }} — The Hole Studio{% endblock %}
+
+{% block extra_css %}
+  /* ── HERO ── */
+  .prod-hero {
+    padding-top: 5.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .prod-hero-inner {
+    display: grid; grid-template-columns: 1fr 420px; min-height: 50vh;
+  }
+  .prod-hero-left {
+    padding: 2rem 2.5rem 2rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+    border-right: 1px solid var(--border);
+  }
+  .prod-back {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .prod-back:hover { color: var(--text); }
+  .prod-hero-title-block { margin-top: auto; }
+  .prod-status-line {
+    font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .prod-status-line::before { content: ''; width: 1.5rem; height: 1px; background: var(--accent2); display: block; }
+  .prod-title {
+    font-family: var(--display);
+    font-size: clamp(4rem, 9vw, 9rem);
+    font-weight: 300; line-height: 0.9; letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .prod-title em { font-style: italic; color: var(--accent2); }
+  .prod-meta-row {
+    display: flex; flex-wrap: wrap; gap: 1.5rem;
+    padding-top: 1.25rem; border-top: 1px solid var(--border);
+  }
+  .prod-meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+  .prod-meta-label { font-size: 0.55rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); }
+  .prod-meta-value { font-size: 0.82rem; color: var(--text); }
+
+  /* ── RIGHT SIDEBAR ── */
+  .prod-hero-right {
+    background: var(--surface);
+    display: flex; flex-direction: column;
+  }
+  .prod-cover {
+    flex: 1; overflow: hidden; position: relative;
+  }
+  .prod-cover img { width: 100%; height: 100%; object-fit: cover; }
+  .prod-cover-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-size: 10rem; font-weight: 300;
+    font-style: italic; color: var(--border);
+  }
+  .prod-cta-box {
+    padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;
+    border-top: 1px solid var(--border); background: var(--bg);
+  }
+
+  /* ── BODY ── */
+  .prod-body { display: grid; grid-template-columns: 1fr 420px; border-bottom: 1px solid var(--border); }
+  .prod-body-left { padding: 1.5rem 2.5rem; border-right: 1px solid var(--border); }
+  .prod-description { font-size: 1rem; line-height: 2; color: var(--text); }
+  .prod-description p + p { margin-top: 1.5rem; }
+  .prod-concept {
+    margin-top: 1.5rem; padding: 1.5rem 1.5rem 1.5rem 1.25rem;
+    background: var(--ink); color: rgba(244,242,237,0.7);
+    font-family: var(--display); font-size: 1.3rem; font-style: italic;
+    font-weight: 300; line-height: 1.7;
+    border-left: 3px solid var(--accent2);
+  }
+  .prod-body-right { padding: 1.5rem 2rem; }
+  .sidebar-heading {
+    font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--muted); padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+  }
+  .cast-list { display: flex; flex-direction: column; }
+  .cast-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.9rem 0; border-bottom: 1px solid var(--border);
+    gap: 1rem;
+  }
+  .cast-name { font-size: 0.88rem; }
+  .cast-role { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; text-align: right; }
+
+  /* ── PHOTOS ── */
+  .prod-photos { padding: 1.5rem 2.5rem; border-bottom: 1px solid var(--border); }
+  .photos-grid {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+  }
+  .photo-item { aspect-ratio: 4/3; overflow: hidden; cursor: pointer; background: var(--surface); }
+  .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .photo-item:hover img { transform: scale(1.05); }
+
+  /* ── VIDEOS ── */
+  .prod-videos { padding: 1.5rem 2.5rem; }
+  .videos-list { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 2.5rem; }
+  .video-title { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+  .video-embed { position: relative; aspect-ratio: 16/9; background: var(--surface); }
+  .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+  @media (max-width: 900px) {
+    .prod-hero-inner { grid-template-columns: 1fr; min-height: auto; }
+    .prod-hero-left { padding: 2.5rem 1.5rem; min-height: 70vh; }
+    .prod-hero-right { min-height: 55vw; }
+    .prod-body { grid-template-columns: 1fr; }
+    .prod-body-left { padding: 3rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); }
+    .prod-body-right { padding: 3rem 1.5rem; }
+    .prod-photos, .prod-videos { padding: 3rem 1.5rem; }
+    .videos-list { grid-template-columns: 1fr; }
+  }
+{% endblock %}
+
+{% block content %}
+
+<article>
+
+  <section class="prod-hero">
+    <div class="prod-hero-inner">
+
+      <div class="prod-hero-left">
+        <a href="{% url 'productions' %}" class="prod-back">&larr; All Productions</a>
+        <div class="prod-hero-title-block">
+          <p class="prod-status-line">{{ production.get_status_display }}</p>
+          <h1 class="prod-title">{{ production.title }}</h1>
+          <div class="prod-meta-row">
+            {% if production.date %}
+            <div class="prod-meta-item">
+              <span class="prod-meta-label">Date</span>
+              <span class="prod-meta-value">{{ production.date|date:"F j, Y" }}</span>
+            </div>
+            {% endif %}
+            {% if production.venue %}
+            <div class="prod-meta-item">
+              <span class="prod-meta-label">Venue</span>
+              <span class="prod-meta-value">{{ production.venue }}</span>
+            </div>
+            {% endif %}
+            {% if production.duration %}
+            <div class="prod-meta-item">
+              <span class="prod-meta-label">Duration</span>
+              <span class="prod-meta-value">{{ production.duration }}</span>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-hero-right">
+        <div class="prod-cover">
+          {% if production.cover_image %}
+            <img src="{{ production.cover_image.url }}" alt="{{ production.title }}">
+          {% else %}
+            {% if production.slug == 'threshold' %}<img src="{% static 'core/img/demo/cover_threshold.jpg' %}" alt="{{ production.title }}">
+            {% elif production.slug == 'body-archive' %}<img src="{% static 'core/img/demo/cover_body_archive.jpg' %}" alt="{{ production.title }}">
+            {% else %}<img src="{% static 'core/img/demo/cover_unground.jpg' %}" alt="{{ production.title }}">{% endif %}
+          {% endif %}
+        </div>
+        {% if production.status == 'upcoming' %}
+        <div class="prod-cta-box">
+          {% if production.ticket_url %}
+          <a href="{{ production.ticket_url }}" class="btn" target="_blank" rel="noopener">Get Tickets</a>
+          {% endif %}
+          <a href="{% url 'contact' %}" class="btn-ghost">Press &amp; Booking Inquiries</a>
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </section>
+
+  <section class="prod-body">
+    <div class="prod-body-left">
+      {% if production.description %}
+      <div class="prod-description">
+        {% for para in production.description.splitlines %}
+          {% if para %}<p>{{ para }}</p>{% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% if production.concept %}
+      <blockquote class="prod-concept">{{ production.concept }}</blockquote>
+      {% endif %}
+    </div>
+    <div class="prod-body-right">
+      {% if production.cast.all %}
+      <p class="sidebar-heading">Cast &amp; Creative</p>
+      <div class="cast-list">
+        {% for member in production.cast.all %}
+        <div class="cast-row">
+          <span class="cast-name">{{ member.name }}</span>
+          <span class="cast-role">{{ member.role }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="prod-photos">
+    <p class="section-label">Photos</p>
+    <div class="photos-grid">
+      {% if production.photos.all %}
+        {% for photo in production.photos.all %}
+        <div class="photo-item" onclick="openLightbox('{{ photo.image.url }}')">
+          <img src="{{ photo.image.url }}" alt="{{ photo.caption }}">
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="photo-item" onclick="openLightbox(this.querySelector('img').src)"><img src="{% static 'core/img/demo/gallery_1.jpg' %}" alt=""></div>
+        <div class="photo-item" onclick="openLightbox(this.querySelector('img').src)"><img src="{% static 'core/img/demo/gallery_2.jpg' %}" alt=""></div>
+        <div class="photo-item" onclick="openLightbox(this.querySelector('img').src)"><img src="{% static 'core/img/demo/gallery_3.jpg' %}" alt=""></div>
+        <div class="photo-item" onclick="openLightbox(this.querySelector('img').src)"><img src="{% static 'core/img/demo/gallery_4.jpg' %}" alt=""></div>
+        <div class="photo-item" onclick="openLightbox(this.querySelector('img').src)"><img src="{% static 'core/img/demo/gallery_5.jpg' %}" alt=""></div>
+        <div class="photo-item" onclick="openLightbox(this.querySelector('img').src)"><img src="{% static 'core/img/demo/gallery_6.jpg' %}" alt=""></div>
+      {% endif %}
+    </div>
+  </section>
+
+  {% if production.videos.all %}
+  <section class="prod-videos">
+    <p class="section-label">Video</p>
+    <div class="videos-list">
+      {% for video in production.videos.all %}
+      <div>
+        <p class="video-title">{{ video.title }}</p>
+        <div class="video-embed">
+          <iframe src="{{ video.embed_url }}" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+</article>
+
+{% endblock %}

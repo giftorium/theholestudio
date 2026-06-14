@@ -1,49 +1,52 @@
 from django.contrib import admin
-from .models import Event, Artist, Photo, Video, ContactMessage
+from .models import Production, CastMember, ProductionPhoto, ProductionVideo, ContactMessage
 
 
-class ArtistInline(admin.TabularInline):
-    model = Artist
+class CastMemberInline(admin.TabularInline):
+    model = CastMember
     extra = 1
 
 
-class PhotoInline(admin.TabularInline):
-    model = Photo
+class ProductionPhotoInline(admin.TabularInline):
+    model = ProductionPhoto
     extra = 1
 
 
-class VideoInline(admin.TabularInline):
-    model = Video
+class ProductionVideoInline(admin.TabularInline):
+    model = ProductionVideo
     extra = 1
 
 
-@admin.register(Event)
-class EventAdmin(admin.ModelAdmin):
-    list_display = ['name', 'date', 'location']
-    inlines = [ArtistInline, VideoInline, PhotoInline]
+@admin.register(Production)
+class ProductionAdmin(admin.ModelAdmin):
+    list_display = ['title', 'status', 'date', 'venue']
+    list_filter = ['status']
+    prepopulated_fields = {'slug': ('title',)}
+    inlines = [CastMemberInline, ProductionVideoInline, ProductionPhotoInline]
 
 
-@admin.register(Artist)
-class ArtistAdmin(admin.ModelAdmin):
-    list_display = ['name', 'role', 'event', 'order']
+@admin.register(CastMember)
+class CastMemberAdmin(admin.ModelAdmin):
+    list_display = ['name', 'role', 'production', 'order']
     list_editable = ['order']
-    list_filter = ['event']
+    list_filter = ['production']
 
 
-@admin.register(Photo)
-class PhotoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'event', 'caption', 'order']
+@admin.register(ProductionPhoto)
+class ProductionPhotoAdmin(admin.ModelAdmin):
+    list_display = ['id', 'production', 'caption', 'order']
     list_editable = ['order', 'caption']
-    list_filter = ['event']
+    list_filter = ['production']
 
 
-@admin.register(Video)
-class VideoAdmin(admin.ModelAdmin):
-    list_display = ['title', 'event', 'order']
+@admin.register(ProductionVideo)
+class ProductionVideoAdmin(admin.ModelAdmin):
+    list_display = ['title', 'production', 'order']
     list_editable = ['order']
 
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email', 'created_at']
-    readonly_fields = ['name', 'email', 'message', 'created_at']
+    list_display = ['name', 'email', 'subject', 'created_at']
+    list_filter = ['subject']
+    readonly_fields = ['name', 'email', 'subject', 'message', 'created_at']

@@ -1,71 +1,161 @@
 {% extends "base.html" %}
 
-{% block title %}Contact — Amir Parsa{% endblock %}
+{% block title %}Contact — The Hole Studio{% endblock %}
 
 {% block extra_css %}
   .contact-page {
-    min-height: 100vh; display: flex; align-items: center;
-    padding: 8rem 3rem;
+    padding-top: 5.5rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: auto;
   }
-  .contact-inner { max-width: 1200px; width: 100%; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: start;
-  }
-  .contact-left { padding-top: 1rem; }
-  .contact-heading {
-    font-family: var(--display);
-    font-size: clamp(2.8rem, 5vw, 5rem); font-weight: 300; line-height: 1.05;
-    margin-bottom: 1.5rem;
-  }
-  .contact-heading em { font-style: italic; color: var(--muted); }
-  .contact-sub { color: var(--muted); font-size: 0.9rem; line-height: 1.9; max-width: 360px; }
 
-  .field { margin-bottom: 2rem; }
-  .field label {
-    display: block; font-size: 0.6rem; letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
+  /* ── LEFT ── */
+  .contact-left {
+    padding: 2rem 2.5rem;
+    display: flex; flex-direction: column;
+    border-right: 1px solid var(--border);
   }
-  .field input, .field textarea {
-    width: 100%; background: transparent; border: none;
-    border-bottom: 1px solid var(--border);
-    color: var(--text); font-family: var(--body); font-size: 0.92rem;
-    font-weight: 300; padding: 0.75rem 0; outline: none;
-    transition: border-color 0.2s; resize: none;
+  .contact-title {
+    font-family: var(--display);
+    font-size: clamp(4.5rem, 10vw, 9rem);
+    font-weight: 300; line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 1rem; margin-bottom: 1.5rem;
   }
-  .field textarea { height: 120px; }
-  .field input:focus, .field textarea:focus { border-color: var(--accent); }
+  .contact-title em { font-style: italic; color: var(--muted); display: block; }
+  .contact-intro {
+    font-size: 0.92rem; color: var(--muted); line-height: 1.9; max-width: 400px;
+    margin-bottom: 2rem;
+  }
+  .contact-types { display: flex; flex-direction: column; gap: 0; margin-top: auto; }
+  .contact-type {
+    padding: 1rem 0; border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: 100px 1fr; gap: 1.5rem; align-items: start;
+  }
+  .contact-type:last-child { border-bottom: 1px solid var(--border); }
+  .contact-type-label {
+    font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted); padding-top: 0.2rem;
+  }
+  .contact-type-desc { font-size: 0.85rem; color: var(--text); line-height: 1.7; }
+  .contact-location {
+    margin-top: 3rem;
+    font-size: 0.68rem; letter-spacing: 0.12em; color: var(--muted);
+  }
+
+  /* ── RIGHT ── */
+  .contact-right {
+    padding: 2rem 2.5rem;
+    background: var(--surface);
+    display: flex; flex-direction: column;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.6rem; }
+  .form-label {
+    font-size: 0.58rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted);
+  }
+  .form-input, .form-select, .form-textarea {
+    background: transparent;
+    border: none; border-bottom: 1px solid var(--border);
+    padding: 0.8rem 0;
+    font-family: var(--body); font-size: 0.95rem; font-weight: 300;
+    color: var(--text); outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--text); }
+  .form-textarea { resize: vertical; min-height: 130px; }
+  .form-select { cursor: pointer; appearance: none; -webkit-appearance: none; }
+  .form-select-wrap { position: relative; }
+  .form-select-wrap::after {
+    content: '↓'; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    font-size: 0.8rem; color: var(--muted); pointer-events: none;
+  }
+  .form-error { font-size: 0.72rem; color: #b00; margin-top: 0.25rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .form-submit { margin-top: 0.5rem; }
 
   @media (max-width: 900px) {
-    .contact-page { padding: 8rem 1.5rem 5rem; align-items: flex-start; }
-    .contact-inner { grid-template-columns: 1fr; gap: 3.5rem; }
+    .contact-page { grid-template-columns: 1fr; }
+    .contact-left { padding: 3rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); }
+    .contact-right { padding: 3rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; gap: 2rem; }
   }
 {% endblock %}
 
 {% block content %}
 
-<section class="contact-page">
-  <div class="contact-inner">
-    <div class="contact-left">
-      <p class="section-label">Contact</p>
-      <h1 class="contact-heading">Let's work<br><em>together</em></h1>
-      <p class="contact-sub">Interested in performing at Live Feedback Toronto, collaborating, or following the series? Get in touch.</p>
+<div class="contact-page">
+
+  <div class="contact-left">
+    <p class="section-label">Contact</p>
+    <h1 class="contact-title">Get<br>in<br><em>Touch</em></h1>
+    <p class="contact-intro">
+      We're interested in hearing from presenters, festivals, venues, and press.
+      Fill out the form and we'll get back to you shortly.
+    </p>
+    <div class="contact-types">
+      <div class="contact-type">
+        <span class="contact-type-label">Booking</span>
+        <span class="contact-type-desc">Festivals, venues, and presenters interested in hosting a production or commissioning new work.</span>
+      </div>
+      <div class="contact-type">
+        <span class="contact-type-label">Press</span>
+        <span class="contact-type-desc">Media inquiries, interviews, and press accreditation for upcoming performances.</span>
+      </div>
+      <div class="contact-type">
+        <span class="contact-type-label">General</span>
+        <span class="contact-type-desc">Collaborations, residencies, and anything in between.</span>
+      </div>
     </div>
-    <form method="POST">
+    <p class="contact-location">Toronto, Canada</p>
+  </div>
+
+  <div class="contact-right">
+    <p class="section-label">Send a Message</p>
+    <form class="contact-form" method="post" novalidate>
       {% csrf_token %}
-      <div class="field">
-        <label for="id_name">Name</label>
-        <input type="text" id="id_name" name="name" value="{{ form.name.value|default:'' }}" required>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="id_name">Name</label>
+          <input class="form-input" type="text" name="name" id="id_name"
+                 value="{{ form.name.value|default:'' }}" placeholder="Your name" required>
+          {% if form.name.errors %}<span class="form-error">{{ form.name.errors.0 }}</span>{% endif %}
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="id_email">Email</label>
+          <input class="form-input" type="email" name="email" id="id_email"
+                 value="{{ form.email.value|default:'' }}" placeholder="your@email.com" required>
+          {% if form.email.errors %}<span class="form-error">{{ form.email.errors.0 }}</span>{% endif %}
+        </div>
       </div>
-      <div class="field">
-        <label for="id_email">Email</label>
-        <input type="email" id="id_email" name="email" value="{{ form.email.value|default:'' }}" required>
+
+      <div class="form-group">
+        <label class="form-label" for="id_subject">Inquiry Type</label>
+        <div class="form-select-wrap">
+          <select class="form-select" name="subject" id="id_subject">
+            {% for value, label in form.fields.subject.choices %}
+            <option value="{{ value }}" {% if form.subject.value == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% if form.subject.errors %}<span class="form-error">{{ form.subject.errors.0 }}</span>{% endif %}
       </div>
-      <div class="field">
-        <label for="id_message">Message</label>
-        <textarea id="id_message" name="message" required>{{ form.message.value|default:'' }}</textarea>
+
+      <div class="form-group">
+        <label class="form-label" for="id_message">Message</label>
+        <textarea class="form-textarea" name="message" id="id_message"
+                  placeholder="Tell us about your project or inquiry..." required>{{ form.message.value|default:'' }}</textarea>
+        {% if form.message.errors %}<span class="form-error">{{ form.message.errors.0 }}</span>{% endif %}
       </div>
-      <button type="submit" class="btn">Send Message</button>
+
+      <div class="form-submit">
+        <button type="submit" class="btn">Send Message</button>
+      </div>
     </form>
   </div>
-</section>
+
+</div>
 
 {% endblock %}

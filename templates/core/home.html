@@ -1,158 +1,347 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Amir Parsa — Light Designer & Curator{% endblock %}
+{% block title %}The Hole Studio — Contemporary Dance &amp; Theatre, Toronto{% endblock %}
 
 {% block extra_css %}
   /* ── HERO ── */
   .hero {
-    min-height: 100vh; display: flex; align-items: flex-end;
-    padding: 3rem; position: relative; overflow: hidden;
+    padding: 0 2.5rem 2rem;
+    padding-top: 5.5rem;
+    display: flex; flex-direction: column; justify-content: flex-start; gap: 1.5rem;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--border);
   }
+  /* dot-grid pattern */
   .hero::before {
     content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 70% 40%, rgba(201,169,110,0.05) 0%, transparent 60%);
-    pointer-events: none;
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, var(--border) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    opacity: 0.55;
   }
-  .hero-content { position: relative; z-index: 1; max-width: 800px; padding-bottom: 2rem; }
+  .hero-top {
+    position: relative; z-index: 1;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding-top: 1rem; padding-bottom: 0.75rem;
+  }
   .hero-eyebrow {
-    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 2rem;
-    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--muted); line-height: 1.8;
   }
-  .hero-eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--accent); }
+  .hero-tagline {
+    font-size: 0.82rem; color: var(--muted); line-height: 1.8;
+    max-width: 300px; text-align: right;
+  }
+  .hero-title-block {
+    position: relative; z-index: 1;
+    padding-bottom: 1.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1.25rem;
+  }
   .hero-title {
     font-family: var(--display);
-    font-size: clamp(3.5rem, 9vw, 8rem);
-    font-weight: 300; line-height: 1; letter-spacing: -0.01em;
-    margin-bottom: 2rem;
+    font-size: clamp(3.5rem, 10vw, 9rem);
+    font-weight: 300; line-height: 0.9;
+    letter-spacing: -0.02em;
+    display: flex; flex-wrap: wrap; gap: 0 0.25em;
   }
-  .hero-title em { font-style: italic; color: var(--muted); }
-  .hero-sub {
-    font-size: 0.9rem; color: var(--muted); letter-spacing: 0.05em;
-    max-width: 380px; line-height: 1.9;
-  }
-  .hero-scroll {
-    position: absolute; bottom: 3rem; right: 3rem;
-    font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--muted); writing-mode: vertical-rl;
-  }
+  .hero-title em { font-style: italic; color: var(--accent2); }
+  .hero-title-row2 { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .hero-cta-block { display: flex; gap: 1rem; align-items: center; padding-bottom: 0.6rem; flex-shrink: 0; }
 
-  /* ── ABOUT ── */
-  #about { padding: 9rem 3rem; }
-  .about-inner {
-    max-width: 1200px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start;
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--ink); color: rgba(244,242,237,0.7);
+    padding: 0.8rem 0; overflow: hidden; white-space: nowrap;
   }
-  .about-heading {
-    font-family: var(--display);
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    font-weight: 300; line-height: 1.1;
+  .ticker-inner {
+    display: inline-flex; gap: 4rem;
+    animation: ticker 22s linear infinite;
+    font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
   }
-  .about-heading em { font-style: italic; color: var(--muted); }
-  .about-text { color: var(--muted); font-size: 0.92rem; line-height: 2; }
-  .about-text p + p { margin-top: 1.25rem; }
-  .about-roles { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.65rem; }
-  .about-role {
-    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); border-left: 1px solid var(--border); padding-left: 1rem;
-  }
+  .ticker-inner span { display: inline-flex; align-items: center; gap: 4rem; }
+  .ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); display: inline-block; opacity: 0.7; }
+  .ticker-dot-b { background: var(--accent2); }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  /* ── FEATURED EVENT ── */
-  #featured {
-    padding: 0 3rem 9rem;
+  /* ── FEATURED ── */
+  .featured {
+    padding: 2rem 2.5rem;
+    border-bottom: 1px solid var(--border);
   }
-  .featured-inner { max-width: 1200px; margin: 0 auto; }
-  .event-card {
-    border: 1px solid var(--border);
-    padding: 4rem; display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto auto;
-    gap: 1.25rem 4rem;
-    align-items: start;
-    transition: border-color 0.3s;
+  .featured-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; margin-top: 1rem;
   }
-  .event-card:hover { border-color: #444; }
-  .event-card-year {
-    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--accent); grid-column: 1; grid-row: 1;
+  .featured-cover {
+    aspect-ratio: 3/4; background: var(--surface);
+    position: relative; overflow: hidden;
   }
-  .event-card-name {
+  .featured-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .featured-cover:hover img { transform: scale(1.04); }
+  .featured-badge {
+    position: absolute; top: 1.5rem; left: 1.5rem;
+    background: var(--accent); color: var(--ink);
+    font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase;
+    padding: 0.4rem 0.9rem; font-weight: 400;
+  }
+  .featured-info { display: flex; flex-direction: column; gap: 1.2rem; padding-top: 0.5rem; }
+  .featured-meta { font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); display: flex; flex-direction: column; gap: 0.4rem; }
+  .featured-title {
     font-family: var(--display);
-    font-size: clamp(3rem, 7vw, 6rem);
-    font-weight: 300; line-height: 0.95;
-    grid-column: 1; grid-row: 2;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 300; line-height: 1.05;
   }
-  .event-card-tagline {
-    color: var(--muted); font-size: 0.88rem; line-height: 1.8;
-    max-width: 480px; grid-column: 1; grid-row: 3;
+  .featured-title em { font-style: italic; }
+  .featured-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.9; }
+  .featured-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
+
+  /* ── PHOTO STRIP ── */
+  .photo-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    border-bottom: 1px solid var(--border);
   }
-  .event-card-link {
-    grid-column: 2; grid-row: 1 / 4;
-    align-self: center;
-    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.2s;
-    writing-mode: vertical-rl;
+  .strip-item { aspect-ratio: 4/5; overflow: hidden; position: relative; }
+  .strip-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .strip-item:hover img { transform: scale(1.06); }
+  .strip-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1rem; background: linear-gradient(transparent, rgba(20,20,16,0.6));
+    font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(244,242,237,0.8); opacity: 0; transition: opacity 0.3s;
   }
-  .event-card-link:hover { color: var(--text); }
+  .strip-item:hover .strip-caption { opacity: 1; }
+
+  /* ── UPCOMING LIST ── */
+  .upcoming-section {
+    padding: 2rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .upcoming-list { margin-top: 1.5rem; }
+  .upcoming-row {
+    display: grid; grid-template-columns: 5rem 1fr 1fr auto;
+    align-items: center; gap: 2rem;
+    padding: 1.1rem 0; border-top: 1px solid var(--border);
+    text-decoration: none; color: var(--text);
+    transition: all 0.2s;
+  }
+  .upcoming-row:last-child { border-bottom: 1px solid var(--border); }
+  .upcoming-row:hover { padding-left: 1.5rem; padding-right: 0.5rem; background: var(--surface); }
+  .upcoming-num { font-family: var(--display); font-size: 0.85rem; color: var(--muted); font-style: italic; }
+  .upcoming-name { font-family: var(--display); font-size: clamp(1.5rem, 3vw, 2.4rem); font-weight: 300; }
+  .upcoming-details { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; line-height: 1.7; }
+  .upcoming-arrow { color: var(--muted); font-size: 1rem; transition: transform 0.2s; }
+  .upcoming-row:hover .upcoming-arrow { transform: translateX(4px); color: var(--text); }
+
+  /* ── DARK BAND ── */
+  .dark-band {
+    background: var(--ink); color: var(--bg);
+    padding: 2.5rem 2.5rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  /* diagonal stripe pattern on dark band */
+  .dark-band::before {
+    content: '';
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.018) 40px,
+      rgba(255,255,255,0.018) 41px
+    );
+  }
+  .dark-band-heading {
+    position: relative; z-index: 1;
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 5vw, 5.5rem);
+    font-weight: 300; line-height: 1.05;
+    color: rgba(244,242,237,0.95);
+  }
+  .dark-band-heading em { font-style: italic; color: var(--accent2); opacity: 0.9; }
+  .dark-band-right { position: relative; z-index: 1; }
+  .dark-band-body {
+    font-size: 0.9rem; color: rgba(244,242,237,0.5); line-height: 2;
+  }
+  .dark-band-body p + p { margin-top: 1.5rem; }
+
+  /* ── CONTACT BOTTOM ── */
+  .home-contact {
+    padding: 0;
+    border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  .home-contact-left {
+    padding: 3rem 2.5rem;
+    border-right: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  /* cross-hatch pattern */
+  .home-contact-left::before {
+    content: '';
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.3;
+  }
+  .home-contact-heading {
+    position: relative; z-index: 1;
+    font-family: var(--display);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300; line-height: 0.92; letter-spacing: -0.02em;
+  }
+  .home-contact-heading em { font-style: italic; color: var(--accent2); display: block; }
+  .home-contact-right {
+    padding: 3rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: center; gap: 2.5rem;
+    background: var(--surface);
+  }
+  .home-contact-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.9; max-width: 380px; }
+  .home-contact-types { display: flex; flex-direction: column; gap: 0; }
+  .home-contact-type {
+    padding: 1rem 0; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .home-contact-type:first-child { border-top: 1px solid var(--border); }
+  .home-contact-type-label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .home-contact-type-arrow { font-size: 0.75rem; color: var(--muted); }
+  .home-contact-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 
   @media (max-width: 900px) {
-    #about { padding: 6rem 1.5rem; }
-    #featured { padding: 0 1.5rem 6rem; }
-    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .event-card { grid-template-columns: 1fr; padding: 2.5rem; }
-    .event-card-link { writing-mode: horizontal-tb; grid-column: 1; grid-row: 4; }
-    .hero { padding: 1.5rem; }
-    .hero-scroll { display: none; }
+    .hero { padding: 0 1.5rem; padding-top: 5rem; }
+    .hero-tagline { display: none; }
+    .hero-title { font-size: clamp(3.5rem, 16vw, 8rem); }
+    .featured { padding: 4rem 1.5rem; }
+    .featured-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .photo-strip { grid-template-columns: repeat(2, 1fr); }
+    .photo-strip .strip-item:nth-child(3),
+    .photo-strip .strip-item:nth-child(4) { display: none; }
+    .upcoming-section { padding: 4rem 1.5rem; }
+    .upcoming-row { grid-template-columns: 3rem 1fr auto; }
+    .upcoming-details { display: none; }
+    .upcoming-row:hover { padding-left: 0.75rem; }
+    .dark-band { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
+    .home-contact { grid-template-columns: 1fr; }
+    .home-contact-left { padding: 5rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); }
+    .home-contact-right { padding: 4rem 1.5rem; }
   }
 {% endblock %}
 
 {% block content %}
 
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
-    <p class="hero-eyebrow">Curator &amp; Audiovisual Producer — Toronto</p>
-    <h1 class="hero-title">Amir<br><em>Parsa</em></h1>
-    <p class="hero-sub">Building platforms where sound, image, and live systems converge into a single experience.</p>
+  <div class="hero-top">
+    <p class="hero-eyebrow">Contemporary Dance &amp; Theatre<br>Toronto, Canada</p>
+    <p class="hero-tagline">Work that lives in the body.<br>Questions the archive refuses.</p>
   </div>
-  <span class="hero-scroll">Scroll to explore</span>
-</section>
-
-<section id="about">
-  <div class="about-inner">
-    <div>
-      <p class="section-label">About</p>
-      <h2 class="about-heading">Where image<br>and sound become <em>one</em></h2>
-    </div>
-    <div>
-      <div class="about-text">
-        <p>Amir Parsa is a Toronto-based curator and audiovisual producer focused on live performance at the intersection of sound, image, and technology.</p>
-        <p>He is the founder of Live Feedback Toronto — a curated series presenting artists who work with real-time audiovisual systems. Each edition brings together performers whose sound and visuals evolve together, live, in front of an audience.</p>
-        <p>His work is built around a simple conviction: that experimentation is not a risk to manage — it's the point.</p>
-      </div>
-      <div class="about-roles">
-        <span class="about-role">Audiovisual Curation</span>
-        <span class="about-role">Live Systems</span>
-        <span class="about-role">Immersive Performance</span>
+  <div class="hero-title-block">
+    <div class="hero-title-row2">
+      <h1 class="hero-title">
+        <span>The</span><span>Hole</span><em>Studio</em>
+      </h1>
+      <div class="hero-cta-block">
+        <a href="/productions/" class="btn">View Productions</a>
       </div>
     </div>
   </div>
 </section>
 
-{% if event %}
-<section id="featured">
-  <div class="featured-inner">
-    <p class="section-label">Featured Event</p>
-    <div class="event-card">
-      <span class="event-card-year">{% if event.date %}{{ event.date|date:"Y" }}{% else %}2024{% endif %}</span>
-      <h2 class="event-card-name">{{ event.name }}</h2>
-      <p class="event-card-tagline">{{ event.tagline }}</p>
-      <a href="/feedback/" class="event-card-link">Explore the Event &rarr;</a>
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span>
+      Threshold &nbsp;<span class="ticker-dot"></span>&nbsp; Body / Archive &nbsp;<span class="ticker-dot ticker-dot-b"></span>&nbsp; Unground &nbsp;<span class="ticker-dot"></span>&nbsp; Luminato Festival &nbsp;<span class="ticker-dot ticker-dot-b"></span>&nbsp; Factory Theatre &nbsp;<span class="ticker-dot"></span>&nbsp; Harbourfront Centre &nbsp;<span class="ticker-dot ticker-dot-b"></span>&nbsp; Contemporary Dance &nbsp;<span class="ticker-dot"></span>&nbsp; Toronto &nbsp;<span class="ticker-dot ticker-dot-b"></span>&nbsp;
+    </span>
+    <span>
+      Threshold &nbsp;<span class="ticker-dot"></span>&nbsp; Body / Archive &nbsp;<span class="ticker-dot ticker-dot-b"></span>&nbsp; Unground &nbsp;<span class="ticker-dot"></span>&nbsp; Luminato Festival &nbsp;<span class="ticker-dot ticker-dot-b"></span>&nbsp; Factory Theatre &nbsp;<span class="ticker-dot"></span>&nbsp; Harbourfront Centre &nbsp;<span class="ticker-dot ticker-dot-b"></span>&nbsp; Contemporary Dance &nbsp;<span class="ticker-dot"></span>&nbsp; Toronto &nbsp;<span class="ticker-dot ticker-dot-b"></span>&nbsp;
+    </span>
+  </div>
+</div>
+
+<!-- FEATURED UPCOMING -->
+{% if featured %}
+<section class="featured">
+  <p class="section-label">Featured Production</p>
+  <div class="featured-grid">
+    <div class="featured-cover">
+      <img src="{% static 'core/img/demo/cover_threshold.jpg' %}" alt="{{ featured.title }}">
+      <span class="featured-badge">{{ featured.get_status_display }}</span>
+    </div>
+    <div class="featured-info">
+      <div class="featured-meta">
+        {% if featured.date %}<span>{{ featured.date|date:"F j, Y" }}</span>{% endif %}
+        {% if featured.venue %}<span>{{ featured.venue }}</span>{% endif %}
+        {% if featured.duration %}<span>{{ featured.duration }}</span>{% endif %}
+      </div>
+      <h2 class="featured-title">{{ featured.title }}</h2>
+      <p class="featured-desc">{{ featured.description|truncatewords:55 }}</p>
+      <div class="featured-actions">
+        <a href="{% url 'production_detail' featured.slug %}" class="btn">Read More</a>
+        {% if featured.ticket_url %}
+          <a href="{{ featured.ticket_url }}" class="btn-ghost" target="_blank" rel="noopener">Tickets</a>
+        {% endif %}
+      </div>
     </div>
   </div>
 </section>
 {% endif %}
+
+<!-- PHOTO STRIP -->
+<div class="photo-strip" aria-hidden="true">
+  <div class="strip-item">
+    <img src="{% static 'core/img/demo/strip_1.jpg' %}" alt="">
+    <span class="strip-caption">Unground, 2024</span>
+  </div>
+  <div class="strip-item">
+    <img src="{% static 'core/img/demo/strip_2.jpg' %}" alt="">
+    <span class="strip-caption">Body / Archive, 2025</span>
+  </div>
+  <div class="strip-item">
+    <img src="{% static 'core/img/demo/strip_3.jpg' %}" alt="">
+    <span class="strip-caption">Threshold Rehearsal, 2026</span>
+  </div>
+  <div class="strip-item">
+    <img src="{% static 'core/img/demo/strip_4.jpg' %}" alt="">
+    <span class="strip-caption">Unground, Luminato 2024</span>
+  </div>
+</div>
+
+<!-- UPCOMING LIST -->
+{% if upcoming.count > 1 %}
+<section class="upcoming-section">
+  <p class="section-label">Upcoming</p>
+  <div class="upcoming-list">
+    {% for p in upcoming %}
+    <a href="{% url 'production_detail' p.slug %}" class="upcoming-row">
+      <span class="upcoming-num">0{{ forloop.counter }}</span>
+      <span class="upcoming-name">{{ p.title }}</span>
+      <span class="upcoming-details">
+        {% if p.date %}{{ p.date|date:"F j, Y" }}{% endif %}{% if p.venue %}<br>{{ p.venue }}{% endif %}
+      </span>
+      <span class="upcoming-arrow">&rarr;</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- DARK BAND -->
+<section class="dark-band">
+  <h2 class="dark-band-heading">Work that<br>refuses to<br><em>settle</em></h2>
+  <div class="dark-band-right">
+    <div class="dark-band-body">
+      <p>The Hole Studio was founded in Toronto by Jaber Ramezani and Negar Nemati. The company makes contemporary dance and theatre that begins in the body and ends somewhere the body can't fully reach.</p>
+      <p>The company is available for presentations, co-productions, and residencies. If you're a festival, presenter, or venue — we'd like to hear from you.</p>
+    </div>
+    <div style="margin-top: 2.5rem;">
+      <a href="/about/" class="btn-inv">About the Company</a>
+    </div>
+  </div>
+</section>
+
 
 {% endblock %}

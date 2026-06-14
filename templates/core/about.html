@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About — The Hole Studio{% endblock %}
+
+{% block extra_css %}
+  /* ── HEADER ── */
+  .about-header {
+    padding-top: 5.5rem;
+    border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: auto;
+  }
+  .about-header-left {
+    padding: 1.5rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    border-right: 1px solid var(--border);
+  }
+  .about-title {
+    font-family: var(--display);
+    font-size: clamp(5rem, 12vw, 11rem);
+    font-weight: 300; line-height: 0.88; letter-spacing: -0.02em;
+    margin-top: auto;
+  }
+  .about-title em { font-style: italic; color: var(--accent2); display: block; }
+  .about-header-right {
+    padding: 1.5rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    background: var(--surface);
+    position: relative; overflow: hidden;
+  }
+  .about-header-right::before {
+    content: '';
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 18px,
+      var(--border) 18px,
+      var(--border) 19px
+    );
+    opacity: 0.35;
+  }
+  .about-header-right > * { position: relative; z-index: 1; }
+  .about-header-quote {
+    font-family: var(--display); font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 300; font-style: italic; line-height: 1.4; color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+  .about-header-sub {
+    font-size: 0.85rem; color: var(--muted); line-height: 1.9; max-width: 380px;
+  }
+
+  /* ── STORY ── */
+  .about-story {
+    display: grid; grid-template-columns: 280px 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .about-story-sidebar {
+    padding: 1.5rem 2.5rem; border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 2rem;
+  }
+  .sidebar-stat { }
+  .sidebar-stat-num {
+    font-family: var(--display); font-size: 4rem; font-weight: 300;
+    font-style: italic; line-height: 1; color: var(--accent);
+    filter: saturate(0.9) brightness(0.75);
+  }
+  .about-story-sidebar .sidebar-stat:nth-child(2) .sidebar-stat-num {
+    color: var(--accent2); filter: saturate(0.85) brightness(0.9);
+  }
+  .sidebar-stat-label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; }
+  .about-story-body { padding: 1.5rem 2.5rem; }
+  .story-text { font-size: 0.95rem; color: var(--muted); line-height: 2; max-width: 620px; }
+  .story-text p + p { margin-top: 1.5rem; }
+
+  /* ── FOUNDERS ── */
+  .founders { border-bottom: 1px solid var(--border); }
+  .founders-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .founder-card {
+    padding: 1.5rem 2.5rem;
+    border-right: 1px solid var(--border);
+  }
+  .founder-card:last-child { border-right: none; }
+  .founder-photo {
+    aspect-ratio: 3/4; background: var(--surface); overflow: hidden;
+    margin-bottom: 1.25rem;
+  }
+  .founder-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .founder-photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-size: 7rem; font-weight: 300;
+    font-style: italic; color: var(--border);
+  }
+  .founder-name {
+    font-family: var(--display); font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300; line-height: 1; margin-bottom: 0.4rem;
+  }
+  .founder-role {
+    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);
+  }
+  .founder-bio { font-size: 0.88rem; color: var(--muted); line-height: 1.9; }
+
+  /* ── VALUES ── */
+  .about-values { background: var(--ink); padding: 2rem 2.5rem; }
+  .values-heading {
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 300; line-height: 1.05;
+    color: rgba(244,242,237,0.9);
+    margin-bottom: 1.5rem;
+  }
+  .values-heading em { font-style: italic; color: var(--accent2); opacity: 0.85; }
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .value-item {
+    padding: 1.25rem; border-left: 1px solid rgba(244,242,237,0.1);
+  }
+  .value-item:first-child { border-left: none; }
+  .value-num {
+    font-family: var(--display); font-size: 3rem; font-weight: 300;
+    font-style: italic; color: var(--accent); opacity: 0.6; line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .value-item:nth-child(2) .value-num { color: var(--accent2); }
+  .value-item:nth-child(3) .value-num { color: var(--accent); }
+  .value-label {
+    font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: rgba(244,242,237,0.4); margin-bottom: 0.75rem;
+  }
+  .value-text { font-size: 0.88rem; color: rgba(244,242,237,0.55); line-height: 1.8; }
+
+  /* ── CTA ── */
+  .about-cta {
+    padding: 2rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 4rem; flex-wrap: wrap;
+  }
+  .about-cta-heading {
+    font-family: var(--display); font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300; line-height: 1.1;
+  }
+  .about-cta-heading em { font-style: italic; color: var(--muted); }
+  .about-cta-actions { display: flex; gap: 1rem; flex-shrink: 0; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .about-header { grid-template-columns: 1fr; min-height: auto; }
+    .about-header-left { padding: 3rem 1.5rem; min-height: 55vw; }
+    .about-header-right { padding: 3rem 1.5rem; border-top: 1px solid var(--border); }
+    .about-story { grid-template-columns: 1fr; }
+    .about-story-sidebar { padding: 3rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; flex-wrap: wrap; gap: 2rem; }
+    .about-story-body { padding: 3rem 1.5rem; }
+    .founders-grid { grid-template-columns: 1fr; }
+    .founder-card { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 1.5rem; }
+    .values-grid { grid-template-columns: 1fr; }
+    .value-item { border-left: none; border-top: 1px solid rgba(244,242,237,0.1); padding: 2rem 1.5rem; }
+    .value-item:first-child { border-top: none; }
+    .about-cta { padding: 4rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    .about-values { padding: 4rem 1.5rem; }
+  }
+{% endblock %}
+
+{% block content %}
+
+<header class="about-header">
+  <div class="about-header-left">
+    <p class="section-label" style="margin-bottom: auto;">About</p>
+    <h1 class="about-title">The<br><em>Hole</em></h1>
+  </div>
+  <div class="about-header-right">
+    <blockquote class="about-header-quote">
+      "We make work that begins in the body and ends somewhere the body can't fully reach."
+    </blockquote>
+    <p class="about-header-sub">
+      The Hole Studio is a Toronto-based contemporary dance and theatre company founded by Jaber Ramezani and Negar Nemati. The company creates work for festivals, theatres, and non-traditional spaces.
+    </p>
+  </div>
+</header>
+
+<section class="about-story">
+  <div class="about-story-sidebar">
+    <div class="sidebar-stat">
+      <div class="sidebar-stat-num">3</div>
+      <div class="sidebar-stat-label">Productions</div>
+    </div>
+    <div class="sidebar-stat">
+      <div class="sidebar-stat-num">2</div>
+      <div class="sidebar-stat-label">Years Active</div>
+    </div>
+    <div class="sidebar-stat">
+      <div class="sidebar-stat-num">3</div>
+      <div class="sidebar-stat-label">Toronto Venues</div>
+    </div>
+  </div>
+  <div class="about-story-body">
+    <p class="section-label">Our Story</p>
+    <div class="story-text">
+      <p>The Hole Studio began as a shared question between two artists who refused to wait for permission. Founded in Toronto roughly two years ago, the company made its debut at Luminato 2024 with <em>Unground</em> — a site-specific work created with no studio, no budget, and no track record.</p>
+      <p>The name comes from the idea of a hole as a point of entry — a gap in the expected, a threshold between the familiar and the unknown. Each production starts from a question the company doesn't yet know how to answer, and the work stays in that uncertainty rather than resolving it.</p>
+      <p>The Hole Studio makes work for audiences who want to be moved, unsettled, and taken somewhere they didn't plan to go. The company is based in Toronto and available for presentations, co-productions, and residencies across Canada and internationally.</p>
+    </div>
+  </div>
+</section>
+
+<section class="founders">
+  <div class="founders-grid">
+    <div class="founder-card">
+      <div class="founder-photo">
+        <img src="{% static 'core/img/demo/founder_jaber.jpg' %}" alt="Jaber Ramezani">
+      </div>
+      <h2 class="founder-name">Jaber Ramezani</h2>
+      <p class="founder-role">Co-Founder &amp; Artistic Director</p>
+      <p class="founder-bio">Jaber Ramezani is a choreographer, director, and performer working at the intersection of dance and physical theatre. His practice is rooted in the body as a site of knowledge — where personal history, cultural memory, and present sensation meet. He trained in Tehran before relocating to Toronto, where he has developed work for stages, found spaces, and outdoor environments.</p>
+    </div>
+    <div class="founder-card">
+      <div class="founder-photo">
+        <img src="{% static 'core/img/demo/founder_negar.jpg' %}" alt="Negar Nemati">
+      </div>
+      <h2 class="founder-name">Negar Nemati</h2>
+      <p class="founder-role">Co-Founder</p>
+      <p class="founder-bio">Negar Nemati is a performer and creative producer whose work spans contemporary dance, interdisciplinary performance, and collaborative creation. She brings a rigorous attention to process and a deep commitment to how work is made — not just what it says. Her practice is shaped by an ongoing interest in archives, documentation, and what gets left out of the official record.</p>
+    </div>
+  </div>
+</section>
+
+<section class="about-values">
+  <h2 class="values-heading">How we<br>make <em>work</em></h2>
+  <div class="values-grid">
+    <div class="value-item">
+      <div class="value-num">01</div>
+      <p class="value-label">Movement First</p>
+      <p class="value-text">The body is where every work starts. We build from physical intelligence, not despite it — and the movement never serves the concept, it generates it.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-num">02</div>
+      <p class="value-label">Collaborative Authorship</p>
+      <p class="value-text">Every production is a shared inquiry. Authorship is distributed and credited honestly. The room makes the work, not the director alone.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-num">03</div>
+      <p class="value-label">Productive Risk</p>
+      <p class="value-text">We make work that isn't safe. Discomfort, in the right hands, is generative. We're not interested in confirming what audiences already know.</p>
+    </div>
+  </div>
+</section>
+
+<section class="about-cta">
+  <h2 class="about-cta-heading">Interested in<br>presenting our <em>work?</em></h2>
+  <div class="about-cta-actions">
+    <a href="{% url 'contact' %}" class="btn">Get in Touch</a>
+    <a href="{% url 'productions' %}" class="btn-ghost">View Productions</a>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,17 +1,28 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Event, ContactMessage
+from .models import Production, ContactMessage
 from .forms import ContactForm
 
 
 def home(request):
-    event = Event.objects.first()
-    return render(request, 'core/home.html', {'event': event})
+    featured = Production.objects.filter(status='upcoming').first() or Production.objects.first()
+    upcoming = Production.objects.filter(status='upcoming')[:3]
+    return render(request, 'core/home.html', {'featured': featured, 'upcoming': upcoming})
 
 
-def feedback(request):
-    event = Event.objects.prefetch_related('photos', 'videos', 'artists').first()
-    return render(request, 'core/feedback.html', {'event': event})
+def productions(request):
+    upcoming = Production.objects.filter(status='upcoming')
+    archive = Production.objects.filter(status='past')
+    return render(request, 'core/productions.html', {'upcoming': upcoming, 'archive': archive})
+
+
+def production_detail(request, slug):
+    production = get_object_or_404(Production, slug=slug)
+    return render(request, 'core/production_detail.html', {'production': production})
+
+
+def about(request):
+    return render(request, 'core/about.html')
 
 
 def contact(request):
@@ -21,6 +32,7 @@ def contact(request):
             ContactMessage.objects.create(
                 name=form.cleaned_data['name'],
                 email=form.cleaned_data['email'],
+                subject=form.cleaned_data['subject'],
                 message=form.cleaned_data['message'],
             )
             messages.success(request, 'Your message has been sent.')

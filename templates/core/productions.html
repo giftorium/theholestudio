@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Productions — The Hole Studio{% endblock %}
+
+{% block extra_css %}
+  .page-header {
+    padding: 5rem 2.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 2rem;
+    position: relative; overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, var(--border) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    opacity: 0.5;
+  }
+  .page-header > * { position: relative; z-index: 1; }
+  .page-title {
+    font-family: var(--display);
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 300; line-height: 0.9; letter-spacing: -0.02em;
+  }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .page-header-sub {
+    font-size: 0.88rem; color: var(--muted); line-height: 1.9; padding-bottom: 0.5rem;
+  }
+
+  /* ── UPCOMING GRID ── */
+  .upcoming-section { padding: 2rem 2.5rem; border-bottom: 1px solid var(--border); }
+  .upcoming-inner { }
+  .upcoming-grid {
+    margin-top: 1.5rem;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2px;
+  }
+  .prod-card {
+    text-decoration: none; color: var(--text);
+    display: flex; flex-direction: column;
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .prod-card:hover { background: var(--surface); }
+  .prod-card-image {
+    aspect-ratio: 2/3; background: var(--surface);
+    overflow: hidden; position: relative;
+  }
+  .prod-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .prod-card:hover .prod-card-image img { transform: scale(1.04); }
+  .prod-card-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-size: 6rem; font-weight: 300;
+    font-style: italic; color: var(--border);
+  }
+  .prod-card-badge {
+    position: absolute; bottom: 1rem; left: 1rem;
+    background: var(--accent); color: var(--ink);
+    font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase;
+    padding: 0.35rem 0.8rem; font-weight: 400;
+  }
+  .prod-card-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .prod-card-meta { font-size: 0.68rem; letter-spacing: 0.1em; color: var(--muted); }
+  .prod-card-title { font-family: var(--display); font-size: 1.8rem; font-weight: 300; line-height: 1.05; }
+  .prod-card-venue { font-size: 0.72rem; color: var(--muted); }
+
+  /* ── ARCHIVE ── */
+  .archive-section { padding: 2rem 2.5rem; }
+  .archive-list { margin-top: 1.5rem; }
+  .archive-row {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr 200px 60px;
+    align-items: center; gap: 2rem;
+    padding: 1.1rem 1rem; border-top: 1px solid var(--border);
+    text-decoration: none; color: var(--text);
+    transition: all 0.2s;
+  }
+  .archive-row:last-child { border-bottom: 1px solid var(--border); }
+  .archive-row:hover { background: var(--surface); padding-left: 2rem; }
+  .archive-year {
+    font-family: var(--display); font-size: 0.9rem;
+    font-style: italic; color: var(--accent); filter: saturate(0.8) brightness(0.7);
+  }
+  .archive-title { font-family: var(--display); font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 300; }
+  .archive-venue { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; }
+  .archive-arrow { text-align: right; color: var(--muted); transition: all 0.2s; }
+  .archive-row:hover .archive-arrow { color: var(--text); transform: translateX(4px); }
+
+  .empty-state {
+    padding: 3rem 0; font-size: 0.88rem; color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 900px) {
+    .page-header { grid-template-columns: 1fr; gap: 2rem; padding: 8rem 1.5rem 3rem; }
+    .upcoming-section, .archive-section { padding: 4rem 1.5rem; }
+    .upcoming-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+    .archive-row { grid-template-columns: 3rem 1fr 2rem; }
+    .archive-venue { display: none; }
+    .archive-row:hover { padding-left: 1.5rem; }
+  }
+  @media (max-width: 580px) {
+    .upcoming-grid { grid-template-columns: 1fr; }
+  }
+{% endblock %}
+
+{% block content %}
+
+<header class="page-header">
+  <h1 class="page-title">Pro<em>duc</em><br>tions</h1>
+  <p class="page-header-sub">
+    Three productions since 2024 — performed at Luminato Festival, Harbourfront Centre, and Factory Theatre.
+    A new work, <em>Threshold</em>, premieres September 2026.
+  </p>
+</header>
+
+{% if upcoming %}
+<section class="upcoming-section">
+  <p class="section-label">Upcoming</p>
+  <div class="upcoming-grid">
+    {% for p in upcoming %}
+    <a href="{% url 'production_detail' p.slug %}" class="prod-card">
+      <div class="prod-card-image">
+        {% if p.cover_image %}
+          <img src="{{ p.cover_image.url }}" alt="{{ p.title }}">
+        {% else %}
+          {% if p.slug == 'threshold' %}<img src="{% static 'core/img/demo/cover_threshold.jpg' %}" alt="{{ p.title }}">
+          {% elif p.slug == 'body-archive' %}<img src="{% static 'core/img/demo/cover_body_archive.jpg' %}" alt="{{ p.title }}">
+          {% else %}<img src="{% static 'core/img/demo/cover_unground.jpg' %}" alt="{{ p.title }}">{% endif %}
+        {% endif %}
+        <span class="prod-card-badge">Upcoming</span>
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-meta">{% if p.date %}{{ p.date|date:"F j, Y" }}{% else %}Date TBA{% endif %}</span>
+        <h2 class="prod-card-title">{{ p.title }}</h2>
+        {% if p.venue %}<span class="prod-card-venue">{{ p.venue }}</span>{% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="archive-section">
+  <p class="section-label">Archive</p>
+  {% if archive %}
+  <div class="archive-list">
+    {% for p in archive %}
+    <a href="{% url 'production_detail' p.slug %}" class="archive-row">
+      <span class="archive-year">{% if p.date %}{{ p.date|date:"Y" }}{% endif %}</span>
+      <span class="archive-title">{{ p.title }}</span>
+      <span class="archive-venue">{{ p.venue }}</span>
+      <span class="archive-arrow">&rarr;</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="empty-state">No past productions yet.</p>
+  {% endif %}
+</section>
+
+{% endblock %}
