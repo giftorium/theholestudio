@@ -268,7 +268,15 @@
   <p class="section-label">Featured Production</p>
   <div class="featured-grid">
     <div class="featured-cover">
-      <img src="{% static 'core/img/demo/cover_threshold.jpg' %}" alt="{{ featured.title }}">
+      {% if featured.cover_image %}
+        <img src="{{ featured.cover_image.url }}" alt="{{ featured.title }}">
+      {% elif featured.slug == 'the-chairs' %}
+        <img src="{% static 'core/img/demo/cover_threshold.jpg' %}" alt="{{ featured.title }}">
+      {% elif featured.slug == 'boundaries-of-bodies' %}
+        <img src="{% static 'core/img/demo/cover_body_archive.jpg' %}" alt="{{ featured.title }}">
+      {% else %}
+        <img src="{% static 'core/img/demo/cover_unground.jpg' %}" alt="{{ featured.title }}">
+      {% endif %}
       <span class="featured-badge">{{ featured.get_status_display }}</span>
     </div>
     <div class="featured-info">
