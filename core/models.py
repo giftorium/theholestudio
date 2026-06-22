@@ -71,6 +71,7 @@ class ProductionVideo(models.Model):
 
 
 class HomePage(models.Model):
+    logo = models.ImageField(upload_to='site/', blank=True, null=True, help_text='Nav logo image. Leave blank to use text.')
     hero_eyebrow = models.CharField(max_length=200, default='Contemporary Dance & Theatre · Toronto, Canada')
     hero_tagline = models.CharField(max_length=300, blank=True, default='Work that lives in the body.\nQuestions the archive refuses.')
     dark_band_heading = models.CharField(max_length=200, default='Work that refuses to settle')
