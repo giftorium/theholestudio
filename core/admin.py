@@ -82,8 +82,9 @@ class HomePageAdmin(admin.ModelAdmin):
 
 @admin.register(HomePhoto)
 class HomePhotoAdmin(admin.ModelAdmin):
-    list_display = ['order', 'caption', 'photo_preview']
-    list_editable = ['order', 'caption']
+    list_display = ['photo_preview', 'caption', 'order']
+    list_display_links = ['photo_preview']
+    list_editable = ['caption', 'order']
 
     def photo_preview(self, obj):
         if obj.image:
