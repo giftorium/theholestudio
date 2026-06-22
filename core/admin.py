@@ -1,48 +1,69 @@
 from django.contrib import admin
-from .models import Production, CastMember, ProductionPhoto, ProductionVideo, ContactMessage
+from django.utils.html import format_html
+from .models import Production, CastMember, ProductionPhoto, ProductionVideo, ContactMessage, Founder
 
 
 class CastMemberInline(admin.TabularInline):
     model = CastMember
     extra = 1
+    fields = ['order', 'name', 'role']
 
 
 class ProductionPhotoInline(admin.TabularInline):
     model = ProductionPhoto
     extra = 1
+    fields = ['order', 'image', 'image_preview', 'caption']
+    readonly_fields = ['image_preview']
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="height:70px;object-fit:cover;">', obj.image.url)
+        return '—'
+    image_preview.short_description = 'Preview'
 
 
 class ProductionVideoInline(admin.TabularInline):
     model = ProductionVideo
     extra = 1
+    fields = ['order', 'title', 'embed_url']
 
 
 @admin.register(Production)
 class ProductionAdmin(admin.ModelAdmin):
-    list_display = ['title', 'status', 'date', 'venue']
+    list_display = ['title', 'status', 'date', 'venue', 'cover_preview']
     list_filter = ['status']
+    search_fields = ['title', 'venue']
     prepopulated_fields = {'slug': ('title',)}
     inlines = [CastMemberInline, ProductionVideoInline, ProductionPhotoInline]
+    fieldsets = [
+        (None, {'fields': ['title', 'slug', 'status']}),
+        ('Details', {'fields': ['date', 'venue', 'duration', 'ticket_url']}),
+        ('Content', {'fields': ['description', 'concept']}),
+        ('Images', {'fields': ['cover_image', 'poster_image']}),
+    ]
+
+    def cover_preview(self, obj):
+        if obj.cover_image:
+            return format_html('<img src="{}" style="height:45px;object-fit:cover;">', obj.cover_image.url)
+        return '—'
+    cover_preview.short_description = 'Cover'
 
 
-@admin.register(CastMember)
-class CastMemberAdmin(admin.ModelAdmin):
-    list_display = ['name', 'role', 'production', 'order']
+@admin.register(Founder)
+class FounderAdmin(admin.ModelAdmin):
+    list_display = ['name', 'role', 'order', 'photo_preview']
     list_editable = ['order']
-    list_filter = ['production']
+    fields = ['order', 'name', 'role', 'bio', 'photo', 'photo_preview', 'website']
+    readonly_fields = ['photo_preview']
 
-
-@admin.register(ProductionPhoto)
-class ProductionPhotoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'production', 'caption', 'order']
-    list_editable = ['order', 'caption']
-    list_filter = ['production']
-
-
-@admin.register(ProductionVideo)
-class ProductionVideoAdmin(admin.ModelAdmin):
-    list_display = ['title', 'production', 'order']
-    list_editable = ['order']
+    def photo_preview(self, obj):
+        if obj.photo:
+            return format_html(
+                '<img src="{}" style="height:80px;width:80px;object-fit:cover;border-radius:4px;">',
+                obj.photo.url
+            )
+        return '—'
+    photo_preview.short_description = 'Preview'
 
 
 @admin.register(ContactMessage)
@@ -50,3 +71,6 @@ class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', 'subject', 'created_at']
     list_filter = ['subject']
     readonly_fields = ['name', 'email', 'subject', 'message', 'created_at']
+
+    def has_add_permission(self, request):
+        return False

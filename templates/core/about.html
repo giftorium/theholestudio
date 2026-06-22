@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}About — The Hole Studio{% endblock %}
+{% block title %}About — the– hOle –studio{% endblock %}
 
 {% block extra_css %}
   /* ── HEADER ── */
@@ -60,7 +60,6 @@
     padding: 1.5rem 2.5rem; border-right: 1px solid var(--border);
     display: flex; flex-direction: column; gap: 2rem;
   }
-  .sidebar-stat { }
   .sidebar-stat-num {
     font-family: var(--display); font-size: 4rem; font-weight: 300;
     font-style: italic; line-height: 1; color: var(--accent);
@@ -73,6 +72,17 @@
   .about-story-body { padding: 1.5rem 2.5rem; }
   .story-text { font-size: 0.95rem; color: var(--muted); line-height: 2; max-width: 620px; }
   .story-text p + p { margin-top: 1.5rem; }
+
+  /* ── LAND ACK ── */
+  .land-ack {
+    padding: 1.5rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .land-ack-text {
+    font-size: 0.82rem; color: var(--muted); line-height: 1.9; max-width: 700px;
+    border-left: 2px solid var(--accent); padding-left: 1.25rem;
+  }
 
   /* ── FOUNDERS ── */
   .founders { border-bottom: 1px solid var(--border); }
@@ -103,6 +113,13 @@
     padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);
   }
   .founder-bio { font-size: 0.88rem; color: var(--muted); line-height: 1.9; }
+  .founder-bio p + p { margin-top: 1rem; }
+  .founder-link {
+    display: inline-block; margin-top: 1rem;
+    font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent2); text-decoration: none; transition: opacity 0.2s;
+  }
+  .founder-link:hover { opacity: 0.7; }
 
   /* ── VALUES ── */
   .about-values { background: var(--ink); padding: 2rem 2.5rem; }
@@ -125,7 +142,6 @@
     margin-bottom: 1.5rem;
   }
   .value-item:nth-child(2) .value-num { color: var(--accent2); }
-  .value-item:nth-child(3) .value-num { color: var(--accent); }
   .value-label {
     font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
     color: rgba(244,242,237,0.4); margin-bottom: 0.75rem;
@@ -152,6 +168,7 @@
     .about-story { grid-template-columns: 1fr; }
     .about-story-sidebar { padding: 3rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; flex-wrap: wrap; gap: 2rem; }
     .about-story-body { padding: 3rem 1.5rem; }
+    .land-ack { padding: 2rem 1.5rem; }
     .founders-grid { grid-template-columns: 1fr; }
     .founder-card { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 1.5rem; }
     .values-grid { grid-template-columns: 1fr; }
@@ -171,10 +188,10 @@
   </div>
   <div class="about-header-right">
     <blockquote class="about-header-quote">
-      "We make work that begins in the body and ends somewhere the body can't fully reach."
+      "We believe that every project demands its own form."
     </blockquote>
     <p class="about-header-sub">
-      The Hole Studio is a Toronto-based contemporary dance and theatre company founded by Jaber Ramezani and Negar Nemati. The company creates work for festivals, theatres, and non-traditional spaces.
+      the– hOle –studio is an independent dance, performance, and film company founded by Iranian artists Jaber Ramezan and Negar Nemati, based in Toronto. The studio develops original works that move between disciplines, cultures, and performance traditions.
     </p>
   </div>
 </header>
@@ -182,66 +199,91 @@
 <section class="about-story">
   <div class="about-story-sidebar">
     <div class="sidebar-stat">
+      <div class="sidebar-stat-num">15+</div>
+      <div class="sidebar-stat-label">Years of Practice</div>
+    </div>
+    <div class="sidebar-stat">
       <div class="sidebar-stat-num">3</div>
       <div class="sidebar-stat-label">Productions</div>
     </div>
     <div class="sidebar-stat">
-      <div class="sidebar-stat-num">2</div>
-      <div class="sidebar-stat-label">Years Active</div>
-    </div>
-    <div class="sidebar-stat">
       <div class="sidebar-stat-num">3</div>
-      <div class="sidebar-stat-label">Toronto Venues</div>
+      <div class="sidebar-stat-label">Countries</div>
     </div>
   </div>
   <div class="about-story-body">
-    <p class="section-label">Our Story</p>
+    <p class="section-label">Who We Are</p>
     <div class="story-text">
-      <p>The Hole Studio began as a shared question between two artists who refused to wait for permission. Founded in Toronto roughly two years ago, the company made its debut at Luminato 2024 with <em>Unground</em> — a site-specific work created with no studio, no budget, and no track record.</p>
-      <p>The name comes from the idea of a hole as a point of entry — a gap in the expected, a threshold between the familiar and the unknown. Each production starts from a question the company doesn't yet know how to answer, and the work stays in that uncertainty rather than resolving it.</p>
-      <p>The Hole Studio makes work for audiences who want to be moved, unsettled, and taken somewhere they didn't plan to go. The company is based in Toronto and available for presentations, co-productions, and residencies across Canada and internationally.</p>
+      <p>the– hOle –studio is an independent dance, performance, and film company founded by Iranian artists Jaber Ramezan and Negar Nemati. Building on more than fifteen years of artistic practice across theatre, dance, film, and design, the studio develops original works that move between disciplines, cultures, and performance traditions.</p>
+      <p>Rooted in the experimental spirit of Tehran's independent arts scene and shaped by international collaborations across Europe and North America, the company brings together artists, performers, filmmakers, and designers to create contemporary works for stage and screen.</p>
+      <p>Led by Artistic Director Jaber Ramezan, the studio is driven by a search for new forms of performance and storytelling. Its projects emerge through research, collaboration, and experimentation, often crossing the boundaries between theatre, choreography, cinema, and visual design.</p>
     </div>
   </div>
 </section>
 
+<div class="land-ack">
+  <p class="section-label">Land Acknowledgement</p>
+  <p class="land-ack-text">
+    the– hOle –studio acknowledges that our work takes place on the traditional territories of many Indigenous Nations, including the Wendat, the Anishinaabeg, the Mississaugas of the Credit First Nation, and the Haudenosaunee Confederacy. We recognize their enduring presence, stewardship, and relationships to this land, and we are committed to ongoing learning, respect, and meaningful dialogue.
+  </p>
+</div>
+
 <section class="founders">
   <div class="founders-grid">
-    <div class="founder-card">
-      <div class="founder-photo">
-        <img src="{% static 'core/img/demo/founder_jaber.jpg' %}" alt="Jaber Ramezani">
+    {% if founders %}
+      {% for founder in founders %}
+      <div class="founder-card">
+        <div class="founder-photo">
+          {% if founder.photo %}
+            <img src="{{ founder.photo.url }}" alt="{{ founder.name }}">
+          {% elif founder.order == 0 %}
+            <img src="{% static 'core/img/demo/founder_negar.jpg' %}" alt="{{ founder.name }}">
+          {% else %}
+            <img src="{% static 'core/img/demo/founder_jaber.jpg' %}" alt="{{ founder.name }}">
+          {% endif %}
+        </div>
+        <h2 class="founder-name">{{ founder.name }}</h2>
+        <p class="founder-role">{{ founder.role }}</p>
+        <div class="founder-bio">{{ founder.bio|linebreaks }}</div>
+        {% if founder.website %}
+        <a href="{{ founder.website }}" class="founder-link" target="_blank" rel="noopener">Website ↗</a>
+        {% endif %}
       </div>
-      <h2 class="founder-name">Jaber Ramezani</h2>
-      <p class="founder-role">Co-Founder &amp; Artistic Director</p>
-      <p class="founder-bio">Jaber Ramezani is a choreographer, director, and performer working at the intersection of dance and physical theatre. His practice is rooted in the body as a site of knowledge — where personal history, cultural memory, and present sensation meet. He trained in Tehran before relocating to Toronto, where he has developed work for stages, found spaces, and outdoor environments.</p>
-    </div>
-    <div class="founder-card">
-      <div class="founder-photo">
-        <img src="{% static 'core/img/demo/founder_negar.jpg' %}" alt="Negar Nemati">
+      {% endfor %}
+    {% else %}
+      <div class="founder-card">
+        <div class="founder-photo"><img src="{% static 'core/img/demo/founder_negar.jpg' %}" alt="Negar Nemati"></div>
+        <h2 class="founder-name">Negar Nemati</h2>
+        <p class="founder-role">Co-Founder &amp; Costume Designer</p>
+        <p class="founder-bio">Award-winning Iranian-Canadian costume designer working across film, theatre, and performance.</p>
       </div>
-      <h2 class="founder-name">Negar Nemati</h2>
-      <p class="founder-role">Co-Founder</p>
-      <p class="founder-bio">Negar Nemati is a performer and creative producer whose work spans contemporary dance, interdisciplinary performance, and collaborative creation. She brings a rigorous attention to process and a deep commitment to how work is made — not just what it says. Her practice is shaped by an ongoing interest in archives, documentation, and what gets left out of the official record.</p>
-    </div>
+      <div class="founder-card">
+        <div class="founder-photo"><img src="{% static 'core/img/demo/founder_jaber.jpg' %}" alt="Jaber Ramezan"></div>
+        <h2 class="founder-name">Jaber Ramezan</h2>
+        <p class="founder-role">Co-Founder &amp; Artistic Director</p>
+        <p class="founder-bio">Iranian-born playwright, director, and choreographer based in Toronto.</p>
+      </div>
+    {% endif %}
   </div>
 </section>
 
 <section class="about-values">
-  <h2 class="values-heading">How we<br>make <em>work</em></h2>
+  <h2 class="values-heading">Our<br><em>Approach</em></h2>
   <div class="values-grid">
     <div class="value-item">
       <div class="value-num">01</div>
-      <p class="value-label">Movement First</p>
-      <p class="value-text">The body is where every work starts. We build from physical intelligence, not despite it — and the movement never serves the concept, it generates it.</p>
+      <p class="value-label">Form First</p>
+      <p class="value-text">We believe that every project demands its own form. Rather than working within fixed genres or disciplines, we approach creation as a process of research and discovery.</p>
     </div>
     <div class="value-item">
       <div class="value-num">02</div>
-      <p class="value-label">Collaborative Authorship</p>
-      <p class="value-text">Every production is a shared inquiry. Authorship is distributed and credited honestly. The room makes the work, not the director alone.</p>
+      <p class="value-label">Memory &amp; the Body</p>
+      <p class="value-text">Influenced by contemporary performance, choreography, cinema, and documentary practices, we are interested in memory, spectatorship, the body, and the ways personal experience intersects with larger social and political realities.</p>
     </div>
     <div class="value-item">
       <div class="value-num">03</div>
-      <p class="value-label">Productive Risk</p>
-      <p class="value-text">We make work that isn't safe. Discomfort, in the right hands, is generative. We're not interested in confirming what audiences already know.</p>
+      <p class="value-label">International Exchange</p>
+      <p class="value-text">Through performances, films, workshops, and artistic laboratories, the studio creates spaces for encounter, exchange, and creative risk-taking, connecting contemporary artistic voices across different geographies, disciplines, and communities.</p>
     </div>
   </div>
 </section>

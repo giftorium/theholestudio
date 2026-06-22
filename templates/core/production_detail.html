@@ -163,8 +163,8 @@
           {% if production.cover_image %}
             <img src="{{ production.cover_image.url }}" alt="{{ production.title }}">
           {% else %}
-            {% if production.slug == 'threshold' %}<img src="{% static 'core/img/demo/cover_threshold.jpg' %}" alt="{{ production.title }}">
-            {% elif production.slug == 'body-archive' %}<img src="{% static 'core/img/demo/cover_body_archive.jpg' %}" alt="{{ production.title }}">
+            {% if production.slug == 'the-chairs' %}<img src="{% static 'core/img/demo/cover_threshold.jpg' %}" alt="{{ production.title }}">
+            {% elif production.slug == 'boundaries-of-bodies' %}<img src="{% static 'core/img/demo/cover_body_archive.jpg' %}" alt="{{ production.title }}">
             {% else %}<img src="{% static 'core/img/demo/cover_unground.jpg' %}" alt="{{ production.title }}">{% endif %}
           {% endif %}
         </div>

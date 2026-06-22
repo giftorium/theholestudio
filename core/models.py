@@ -70,6 +70,21 @@ class ProductionVideo(models.Model):
         return self.title
 
 
+class Founder(models.Model):
+    name = models.CharField(max_length=100)
+    role = models.CharField(max_length=200)
+    bio = models.TextField()
+    photo = models.ImageField(upload_to='founders/', blank=True, null=True)
+    website = models.URLField(blank=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.name
+
+
 SUBJECT_CHOICES = [
     ('general', 'General'),
     ('booking', 'Booking'),
