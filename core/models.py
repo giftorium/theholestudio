@@ -70,6 +70,41 @@ class ProductionVideo(models.Model):
         return self.title
 
 
+class HomePage(models.Model):
+    hero_eyebrow = models.CharField(max_length=200, default='Contemporary Dance & Theatre · Toronto, Canada')
+    hero_tagline = models.CharField(max_length=300, blank=True, default='Work that lives in the body.\nQuestions the archive refuses.')
+    dark_band_heading = models.CharField(max_length=200, default='Work that refuses to settle')
+    dark_band_body = models.TextField(blank=True, default='the– hOle –studio is an independent dance, performance, and film company founded by Iranian artists Jaber Ramezan and Negar Nemati, based in Toronto. Building on more than fifteen years of practice, the studio develops original works that move between disciplines, cultures, and performance traditions.\n\nThe studio is available for presentations, co-productions, and residencies. If you\'re a festival, presenter, or venue — we\'d like to hear from you.')
+
+    class Meta:
+        verbose_name = 'Home Page'
+        verbose_name_plural = 'Home Page'
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def get(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def __str__(self):
+        return 'Home Page'
+
+
+class HomePhoto(models.Model):
+    image = models.ImageField(upload_to='home/strip/')
+    caption = models.CharField(max_length=200, blank=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.caption or f'Photo {self.order + 1}'
+
+
 class Founder(models.Model):
     name = models.CharField(max_length=100)
     role = models.CharField(max_length=200)

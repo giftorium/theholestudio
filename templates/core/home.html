@@ -235,8 +235,8 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-top">
-    <p class="hero-eyebrow">Contemporary Dance &amp; Theatre<br>Toronto, Canada</p>
-    <p class="hero-tagline">Work that lives in the body.<br>Questions the archive refuses.</p>
+    <p class="hero-eyebrow">{{ homepage.hero_eyebrow }}</p>
+    <p class="hero-tagline">{{ homepage.hero_tagline|linebreaksbr }}</p>
   </div>
   <div class="hero-title-block">
     <div class="hero-title-row2">
@@ -292,22 +292,19 @@
 
 <!-- PHOTO STRIP -->
 <div class="photo-strip" aria-hidden="true">
-  <div class="strip-item">
-    <img src="{% static 'core/img/demo/strip_1.jpg' %}" alt="">
-    <span class="strip-caption">Unground, 2024</span>
-  </div>
-  <div class="strip-item">
-    <img src="{% static 'core/img/demo/strip_2.jpg' %}" alt="">
-    <span class="strip-caption">Body / Archive, 2025</span>
-  </div>
-  <div class="strip-item">
-    <img src="{% static 'core/img/demo/strip_3.jpg' %}" alt="">
-    <span class="strip-caption">Threshold Rehearsal, 2026</span>
-  </div>
-  <div class="strip-item">
-    <img src="{% static 'core/img/demo/strip_4.jpg' %}" alt="">
-    <span class="strip-caption">Unground, Luminato 2024</span>
-  </div>
+  {% if strip_photos %}
+    {% for photo in strip_photos %}
+    <div class="strip-item">
+      <img src="{{ photo.image.url }}" alt="">
+      {% if photo.caption %}<span class="strip-caption">{{ photo.caption }}</span>{% endif %}
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="strip-item"><img src="{% static 'core/img/demo/strip_1.jpg' %}" alt=""></div>
+    <div class="strip-item"><img src="{% static 'core/img/demo/strip_2.jpg' %}" alt=""></div>
+    <div class="strip-item"><img src="{% static 'core/img/demo/strip_3.jpg' %}" alt=""></div>
+    <div class="strip-item"><img src="{% static 'core/img/demo/strip_4.jpg' %}" alt=""></div>
+  {% endif %}
 </div>
 
 <!-- UPCOMING LIST -->
@@ -331,11 +328,10 @@
 
 <!-- DARK BAND -->
 <section class="dark-band">
-  <h2 class="dark-band-heading">Work that<br>refuses to<br><em>settle</em></h2>
+  <h2 class="dark-band-heading">{{ homepage.dark_band_heading|default:"Work that refuses to settle" }}</h2>
   <div class="dark-band-right">
     <div class="dark-band-body">
-      <p>the– hOle –studio is an independent dance, performance, and film company founded by Iranian artists Jaber Ramezan and Negar Nemati, based in Toronto. Building on more than fifteen years of practice, the studio develops original works that move between disciplines, cultures, and performance traditions.</p>
-      <p>The studio is available for presentations, co-productions, and residencies. If you're a festival, presenter, or venue — we'd like to hear from you.</p>
+      {{ homepage.dark_band_body|linebreaks }}
     </div>
     <div style="margin-top: 2.5rem;">
       <a href="/about/" class="btn-inv">About the Company</a>

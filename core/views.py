@@ -1,13 +1,20 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Production, ContactMessage, Founder
+from .models import Production, ContactMessage, Founder, HomePage, HomePhoto
 from .forms import ContactForm
 
 
 def home(request):
     featured = Production.objects.filter(status='upcoming').first() or Production.objects.first()
     upcoming = Production.objects.filter(status='upcoming')[:3]
-    return render(request, 'core/home.html', {'featured': featured, 'upcoming': upcoming})
+    homepage = HomePage.get()
+    strip_photos = HomePhoto.objects.all()
+    return render(request, 'core/home.html', {
+        'featured': featured,
+        'upcoming': upcoming,
+        'homepage': homepage,
+        'strip_photos': strip_photos,
+    })
 
 
 def productions(request):
