@@ -66,22 +66,8 @@ class FounderAdmin(admin.ModelAdmin):
     photo_preview.short_description = 'Preview'
 
 
-class HomePhotoInline(admin.TabularInline):
-    model = HomePhoto
-    extra = 1
-    fields = ['order', 'image', 'photo_preview', 'caption']
-    readonly_fields = ['photo_preview']
-
-    def photo_preview(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="height:70px;object-fit:cover;">', obj.image.url)
-        return '—'
-    photo_preview.short_description = 'Preview'
-
-
 @admin.register(HomePage)
 class HomePageAdmin(admin.ModelAdmin):
-    inlines = [HomePhotoInline]
     fieldsets = [
         ('Hero', {'fields': ['hero_eyebrow', 'hero_tagline']}),
         ('Dark Band', {'fields': ['dark_band_heading', 'dark_band_body']}),
@@ -92,6 +78,18 @@ class HomePageAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+@admin.register(HomePhoto)
+class HomePhotoAdmin(admin.ModelAdmin):
+    list_display = ['order', 'caption', 'photo_preview']
+    list_editable = ['order', 'caption']
+
+    def photo_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="height:60px;object-fit:cover;">', obj.image.url)
+        return '—'
+    photo_preview.short_description = 'Preview'
 
 
 @admin.register(ContactMessage)
