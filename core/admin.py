@@ -69,6 +69,7 @@ class FounderAdmin(admin.ModelAdmin):
 @admin.register(HomePage)
 class HomePageAdmin(admin.ModelAdmin):
     fieldsets = [
+        ('Branding', {'fields': ['logo']}),
         ('Hero', {'fields': ['hero_eyebrow', 'hero_tagline']}),
         ('Dark Band', {'fields': ['dark_band_heading', 'dark_band_body']}),
     ]
