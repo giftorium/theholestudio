@@ -17,6 +17,19 @@ def home(request):
     })
 
 
+def home2(request):
+    featured = Production.objects.filter(status='upcoming').first() or Production.objects.first()
+    upcoming = Production.objects.filter(status='upcoming')[:3]
+    homepage = HomePage.get()
+    strip_photos = HomePhoto.objects.all()
+    return render(request, 'core/home2.html', {
+        'featured': featured,
+        'upcoming': upcoming,
+        'homepage': homepage,
+        'strip_photos': strip_photos,
+    })
+
+
 def productions(request):
     upcoming = Production.objects.filter(status='upcoming')
     archive = Production.objects.filter(status='past')

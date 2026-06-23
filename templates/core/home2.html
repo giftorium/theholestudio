@@ -1,0 +1,51 @@
+{% extends "core/home.html" %}
+
+{% block extra_css %}
+{{ block.super }}
+
+/* ── INVERTED THEME ── */
+:root {
+  --bg: #0f0f0f;
+  --surface: #1a1a1a;
+  --border: #2a2a2a;
+  --text: #eeeeee;
+  --muted: #888888;
+  --ink: #f2f2f2;
+}
+
+/* Nav: dark frosted */
+nav {
+  background: rgba(15,15,15,0.95) !important;
+  border-bottom-color: #2a2a2a !important;
+}
+.nav-links a { color: #888 !important; }
+.nav-links a:hover, .nav-links a.active { color: #eee !important; }
+
+/* Ink sections now have light bg — fix hardcoded white text */
+.dark-band-heading { color: rgba(0,0,0,0.88) !important; }
+.dark-band-heading em { color: var(--accent) !important; opacity: 1 !important; }
+.dark-band-body { color: rgba(0,0,0,0.5) !important; }
+.dark-band::before {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent, transparent 40px,
+    rgba(0,0,0,0.025) 40px, rgba(0,0,0,0.025) 41px
+  ) !important;
+}
+.ticker-inner { color: rgba(0,0,0,0.65) !important; }
+.ticker-dot { background: rgba(0,0,0,0.25) !important; }
+.ticker-dot-b { background: var(--accent) !important; }
+
+/* Footer: now light */
+footer { color: rgba(0,0,0,0.45) !important; }
+.footer-logo { color: rgba(0,0,0,0.88) !important; }
+
+/* Buttons on dark bg */
+.btn { border-color: #eeeeee !important; color: #eeeeee !important; }
+.btn:hover { background: #eeeeee !important; color: #0f0f0f !important; }
+.btn-inv { border-color: rgba(0,0,0,0.3) !important; color: rgba(0,0,0,0.8) !important; }
+.btn-inv:hover { background: rgba(0,0,0,0.08) !important; }
+
+/* Section label line color stays green */
+.section-label::before { background: var(--accent) !important; }
+{% endblock %}
