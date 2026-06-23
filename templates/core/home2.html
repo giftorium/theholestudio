@@ -3,87 +3,137 @@
 {% block extra_css %}
 {{ block.super }}
 
-/* ── DARK THEME ── */
+/* ══════════════════════════════════════
+   DARK THEME — the– hOle –studio
+   Base palette override
+══════════════════════════════════════ */
 :root {
-  --bg:      #0d0d0d;
-  --surface: #181818;
-  --border:  #303030;
-  --text:    #e8e8e6;
-  --muted:   #7a7a7a;
-  --ink:     #ede9e1;   /* warm off-white — softer than stark #fff */
+  --bg:      #0b0b0b;
+  --surface: #161616;
+  --border:  #222222;
+  --text:    #e4e4e0;
+  --muted:   #666666;
+  --ink:     #eceae3;   /* warm off-white — same warmth as the original cream */
 }
 
-/* Nav */
+/* ── NAV ── */
 nav {
-  background: rgba(13,13,13,0.96) !important;
-  border-bottom: 1px solid #242424 !important;
+  background: rgba(11,11,11,0.97) !important;
+  border-bottom: 1px solid #1a1a1a !important;
 }
-.nav-logo { color: #e8e8e6 !important; }
-.nav-links a { color: #666 !important; }
-.nav-links a:hover { color: #e8e8e6 !important; }
-.nav-links a.active {
-  color: #e8e8e6 !important;
-  border-bottom-color: var(--accent) !important;
+.nav-logo { color: #e4e4e0 !important; }
+.nav-links a { color: #555 !important; }
+.nav-links a:hover { color: #e4e4e0 !important; }
+.nav-links a.active { color: #e4e4e0 !important; border-bottom-color: var(--accent) !important; }
+
+/* ── HERO ── */
+/* Replace near-invisible dots with subtle green constellation */
+.hero { background: #0b0b0b !important; border-bottom-color: #1a1a1a !important; }
+.hero::before {
+  background-image: radial-gradient(circle, rgba(157,210,163,0.18) 1px, transparent 1px) !important;
+  background-size: 32px 32px !important;
+  opacity: 1 !important;
 }
+/* Green accent line above the title — feels like a horizon */
+.hero-title-block {
+  border-top-color: rgba(157,210,163,0.35) !important;
+}
+/* Very faint glow behind the large title */
+.hero-title {
+  text-shadow: 0 0 80px rgba(157,210,163,0.06) !important;
+}
+/* Buttons in hero */
+.btn { border-color: #e4e4e0 !important; color: #e4e4e0 !important; }
+.btn:hover { background: #e4e4e0 !important; color: #0b0b0b !important; }
 
-/* Buttons on dark bg */
-.btn { border-color: #e8e8e6 !important; color: #e8e8e6 !important; }
-.btn:hover { background: #e8e8e6 !important; color: #0d0d0d !important; }
-.btn-ghost { border-color: #303030 !important; color: #666 !important; }
-.btn-ghost:hover { border-color: #e8e8e6 !important; color: #e8e8e6 !important; }
-
-/* Featured badge: green bg + dark text (ink is now light) */
-.featured-badge { color: #0d0d0d !important; }
-
-/* Ticker — sits in --ink bg (warm off-white) */
-.ticker { border-top: 1px solid #d4d0c8 !important; border-bottom: 1px solid #d4d0c8 !important; }
-.ticker-inner { color: rgba(0,0,0,0.55) !important; }
-.ticker-dot { background: rgba(0,0,0,0.2) !important; opacity: 1 !important; }
+/* ── TICKER (now warm off-white) ── */
+.ticker {
+  border-top: 1px solid #c8c5bc !important;
+  border-bottom: 1px solid #c8c5bc !important;
+  padding: 1rem 0 !important;     /* slightly taller — more visual weight */
+}
+.ticker-inner { color: rgba(0,0,0,0.45) !important; letter-spacing: 0.26em !important; }
+.ticker-dot { background: rgba(0,0,0,0.15) !important; opacity: 1 !important; }
 .ticker-dot-b { background: var(--accent) !important; }
 
-/* Dark band — sits in --ink bg (warm off-white) */
+/* ── FEATURED ── */
+.featured {
+  padding-bottom: 5rem !important;    /* breathe away from photo strip */
+  border-bottom: none !important;     /* remove hard line — replaced by gap */
+}
+.section-label { color: var(--muted) !important; }
+.section-label::before { background: var(--accent) !important; }
+/* Subtle left border on the info panel for depth */
+.featured-info {
+  border-left: 1px solid #1e1e1e !important;
+  padding-left: 2.5rem !important;
+}
+.featured-badge { color: #0b0b0b !important; }    /* green bg, dark text */
+.featured-desc { color: var(--muted) !important; }
+.btn-ghost { border-color: #2a2a2a !important; color: #666 !important; }
+.btn-ghost:hover { border-color: #e4e4e0 !important; color: #e4e4e0 !important; }
+
+/* ── PHOTO STRIP ── */
+/* Gap above strip creates deliberate section break */
+.photo-strip {
+  margin-top: 1px !important;
+  border-top: 3px solid #161616 !important;    /* thick dark gap acts as separator */
+  border-bottom: 3px solid #161616 !important;
+  gap: 3px !important;
+}
+
+/* ── UPCOMING LIST ── */
+.upcoming-section { border-bottom-color: #1a1a1a !important; }
+.upcoming-row {
+  border-top-color: #1e1e1e !important;
+}
+.upcoming-row:last-child { border-bottom-color: #1e1e1e !important; }
+.upcoming-row:hover { background: #141414 !important; }
+.upcoming-row:hover .upcoming-arrow { color: var(--accent) !important; transform: translateX(4px) !important; }
+.upcoming-num { color: #333 !important; }
+
+/* ── DARK BAND (now warm off-white) ── */
 .dark-band {
-  border-top: 1px solid #d4d0c8 !important;
-  border-bottom: 1px solid #d4d0c8 !important;
+  border-top: 1px solid #c8c5bc !important;
+  border-bottom: 1px solid #c8c5bc !important;
 }
 .dark-band::before {
   background-image: repeating-linear-gradient(
     -45deg,
     transparent, transparent 40px,
-    rgba(0,0,0,0.03) 40px, rgba(0,0,0,0.03) 41px
+    rgba(0,0,0,0.028) 40px, rgba(0,0,0,0.028) 41px
   ) !important;
 }
-.dark-band-heading { color: rgba(0,0,0,0.82) !important; }
-.dark-band-heading em { color: var(--accent) !important; opacity: 1 !important; }
-.dark-band-body { color: rgba(0,0,0,0.45) !important; }
+.dark-band-heading { color: rgba(0,0,0,0.80) !important; }
+.dark-band-heading em { color: var(--accent) !important; filter: saturate(1.2) brightness(0.82) !important; opacity: 1 !important; }
+.dark-band-body { color: rgba(0,0,0,0.42) !important; }
 .btn-inv {
-  border-color: rgba(0,0,0,0.25) !important;
-  color: rgba(0,0,0,0.75) !important;
+  border-color: rgba(0,0,0,0.2) !important;
+  color: rgba(0,0,0,0.65) !important;
 }
-.btn-inv:hover {
-  background: rgba(0,0,0,0.07) !important;
-  color: rgba(0,0,0,0.9) !important;
-}
+.btn-inv:hover { background: rgba(0,0,0,0.06) !important; color: rgba(0,0,0,0.85) !important; }
 
-/* Footer — sits in --ink bg (warm off-white) */
-footer {
-  border-top: 1px solid #d4d0c8 !important;
-  color: rgba(0,0,0,0.4) !important;
-}
-.footer-logo { color: rgba(0,0,0,0.82) !important; }
-
-/* Cross-hatch on contact section: make lines visible on dark bg */
+/* ── CONTACT SECTION ── */
+.home-contact { border-top-color: #1a1a1a !important; }
+.home-contact-left { border-right-color: #1e1e1e !important; }
+/* Cross-hatch visible on dark bg */
 .home-contact-left::before {
   background-image:
-    linear-gradient(#2a2a2a 1px, transparent 1px),
-    linear-gradient(90deg, #2a2a2a 1px, transparent 1px) !important;
-  opacity: 0.6 !important;
+    linear-gradient(#1e1e1e 1px, transparent 1px),
+    linear-gradient(90deg, #1e1e1e 1px, transparent 1px) !important;
+  opacity: 1 !important;
 }
+.home-contact-heading { color: #e4e4e0 !important; }
+.home-contact-heading em { color: var(--accent) !important; }
+.home-contact-right { background: #111 !important; }
+.home-contact-type { border-bottom-color: #1e1e1e !important; }
+.home-contact-type:first-child { border-top-color: #1e1e1e !important; }
 
-/* Section label stays readable */
-.section-label { color: #666 !important; }
-.section-label::before { background: var(--accent) !important; }
+/* ── FOOTER (now warm off-white) ── */
+footer {
+  border-top: 1px solid #c8c5bc !important;
+  color: rgba(0,0,0,0.38) !important;
+}
+.footer-logo { color: rgba(0,0,0,0.78) !important; }
 
-/* Upcoming row hover — more visible on dark */
-.upcoming-row:hover { background: #181818 !important; }
 {% endblock %}
