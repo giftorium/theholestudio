@@ -10,16 +10,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f4f2ed;
-      --surface: #eae8e2;
-      --border: #ccc9c0;
-      --text: #141410;
-      --muted: #6e6b60;
-      --ink: #1a1a14;
+      --bg: #ffffff;
+      --surface: #f5f5f5;
+      --border: #e0e0e0;
+      --text: #111111;
+      --muted: #666666;
+      --ink: #111111;
       --accent: #9DD2A3;
       --accent-dim: rgba(157,210,163,0.18);
-      --accent2: #C4856A;
-      --accent2-dim: rgba(196,133,106,0.15);
       --display: 'Cormorant Garamond', serif;
       --body: 'Inter', sans-serif;
     }
@@ -40,7 +38,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 1.4rem 2.5rem;
-      background: rgba(244,242,237,0.95);
+      background: rgba(255,255,255,0.95);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
@@ -50,7 +48,7 @@
       text-decoration: none; color: var(--text);
       display: flex; align-items: center; gap: 0.4em;
     }
-    .nav-logo .o { font-size: 1.2em; line-height: 1; display: inline-block; }
+    .nav-logo .o { }
     .nav-logo img { height: 64px; width: auto; display: block; mix-blend-mode: multiply; }
     .nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
     .nav-links a {
@@ -80,7 +78,7 @@
 
     .btn-inv {
       display: inline-block; padding: 0.9rem 3rem;
-      border: 1px solid rgba(244,242,237,0.4); background: transparent;
+      border: 1px solid rgba(255,255,255,0.4); background: transparent;
       color: var(--bg); font-family: var(--body); font-size: 0.65rem;
       letter-spacing: 0.22em; text-transform: uppercase;
       cursor: pointer; text-decoration: none;
@@ -100,7 +98,7 @@
 
     /* ── FOOTER ── */
     footer {
-      background: var(--ink); color: rgba(244,242,237,0.5);
+      background: var(--ink); color: rgba(255,255,255,0.5);
       padding: 3rem 2.5rem;
       display: grid; grid-template-columns: 1fr auto 1fr;
       align-items: center;
@@ -108,7 +106,7 @@
     }
     .footer-logo {
       font-family: var(--display); font-size: 1.1rem; font-weight: 300;
-      color: rgba(244,242,237,0.9); letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.9); letter-spacing: 0.04em;
     }
     .footer-center { text-align: center; }
     .footer-right { text-align: right; }
@@ -131,7 +129,7 @@
     .lightbox img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
     .lightbox-close {
       position: absolute; top: 1.5rem; right: 2rem;
-      color: rgba(244,242,237,0.4); font-size: 1.8rem; background: none; border: none;
+      color: rgba(255,255,255,0.4); font-size: 1.8rem; background: none; border: none;
       cursor: pointer; line-height: 1; transition: color 0.2s;
     }
     .lightbox-close:hover { color: var(--bg); }

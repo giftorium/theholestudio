@@ -46,13 +46,13 @@
     letter-spacing: -0.02em;
     display: flex; flex-wrap: wrap; gap: 0 0.25em;
   }
-  .hero-title .o { font-size: 1.18em; line-height: 1; display: inline-block; }
+  .hero-title .o { }
   .hero-title-row2 { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
   .hero-cta-block { display: flex; gap: 1rem; align-items: center; padding-bottom: 0.6rem; flex-shrink: 0; }
 
   /* ── TICKER ── */
   .ticker {
-    background: var(--ink); color: rgba(244,242,237,0.7);
+    background: var(--ink); color: rgba(255,255,255,0.7);
     padding: 0.8rem 0; overflow: hidden; white-space: nowrap;
   }
   .ticker-inner {
@@ -62,7 +62,7 @@
   }
   .ticker-inner span { display: inline-flex; align-items: center; gap: 4rem; }
   .ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); display: inline-block; opacity: 0.7; }
-  .ticker-dot-b { background: var(--accent2); }
+  .ticker-dot-b { background: var(--accent); }
   @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   /* ── FEATURED ── */
@@ -108,7 +108,7 @@
     position: absolute; bottom: 0; left: 0; right: 0;
     padding: 1rem; background: linear-gradient(transparent, rgba(20,20,16,0.6));
     font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: rgba(244,242,237,0.8); opacity: 0; transition: opacity 0.3s;
+    color: rgba(255,255,255,0.8); opacity: 0; transition: opacity 0.3s;
   }
   .strip-item:hover .strip-caption { opacity: 1; }
 
@@ -157,12 +157,12 @@
     font-family: var(--display);
     font-size: clamp(2.5rem, 5vw, 5.5rem);
     font-weight: 300; line-height: 1.05;
-    color: rgba(244,242,237,0.95);
+    color: rgba(255,255,255,0.95);
   }
-  .dark-band-heading em { font-style: italic; color: var(--accent2); opacity: 0.9; }
+  .dark-band-heading em { font-style: italic; color: var(--accent); opacity: 0.9; }
   .dark-band-right { position: relative; z-index: 1; }
   .dark-band-body {
-    font-size: 0.9rem; color: rgba(244,242,237,0.5); line-height: 2;
+    font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 2;
   }
   .dark-band-body p + p { margin-top: 1.5rem; }
 
@@ -193,7 +193,7 @@
     font-size: clamp(3.5rem, 8vw, 7rem);
     font-weight: 300; line-height: 0.92; letter-spacing: -0.02em;
   }
-  .home-contact-heading em { font-style: italic; color: var(--accent2); display: block; }
+  .home-contact-heading em { font-style: italic; color: var(--accent); display: block; }
   .home-contact-right {
     padding: 3rem 2.5rem;
     display: flex; flex-direction: column; justify-content: center; gap: 2.5rem;
