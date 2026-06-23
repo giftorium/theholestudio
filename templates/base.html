@@ -50,8 +50,8 @@
       text-decoration: none; color: var(--text);
       display: flex; align-items: center; gap: 0.4em;
     }
-    .nav-logo em { font-style: italic; font-weight: 300; }
-    .nav-logo img { height: 48px; width: auto; display: block; mix-blend-mode: multiply; }
+    .nav-logo .o { font-size: 1.2em; line-height: 1; display: inline-block; }
+    .nav-logo img { height: 64px; width: auto; display: block; mix-blend-mode: multiply; }
     .nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
     .nav-links a {
       font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
@@ -158,7 +158,7 @@
     {% if site_settings.logo %}
       <img src="{{ site_settings.logo.url }}" alt="the– hOle –studio">
     {% else %}
-      The Hole <em>Studio</em>
+      the– h<span class="o">O</span>le –studio
     {% endif %}
   </a>
   <ul class="nav-links">
@@ -178,7 +178,7 @@
 {% block content %}{% endblock %}
 
 <footer>
-  <span class="footer-logo">The Hole Studio</span>
+  <span class="footer-logo">the– h<span style="font-size:1.2em;line-height:1;display:inline-block;">O</span>le –studio</span>
   <span class="footer-center">Contemporary Dance &amp; Theatre</span>
   <span class="footer-right">Toronto &mdash; &copy; {% now "Y" %}</span>
 </footer>
