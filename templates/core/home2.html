@@ -3,49 +3,87 @@
 {% block extra_css %}
 {{ block.super }}
 
-/* ── INVERTED THEME ── */
+/* ── DARK THEME ── */
 :root {
-  --bg: #0f0f0f;
-  --surface: #1a1a1a;
-  --border: #2a2a2a;
-  --text: #eeeeee;
-  --muted: #888888;
-  --ink: #f2f2f2;
+  --bg:      #0d0d0d;
+  --surface: #181818;
+  --border:  #303030;
+  --text:    #e8e8e6;
+  --muted:   #7a7a7a;
+  --ink:     #ede9e1;   /* warm off-white — softer than stark #fff */
 }
 
-/* Nav: dark frosted */
+/* Nav */
 nav {
-  background: rgba(15,15,15,0.95) !important;
-  border-bottom-color: #2a2a2a !important;
+  background: rgba(13,13,13,0.96) !important;
+  border-bottom: 1px solid #242424 !important;
 }
-.nav-links a { color: #888 !important; }
-.nav-links a:hover, .nav-links a.active { color: #eee !important; }
+.nav-logo { color: #e8e8e6 !important; }
+.nav-links a { color: #666 !important; }
+.nav-links a:hover { color: #e8e8e6 !important; }
+.nav-links a.active {
+  color: #e8e8e6 !important;
+  border-bottom-color: var(--accent) !important;
+}
 
-/* Ink sections now have light bg — fix hardcoded white text */
-.dark-band-heading { color: rgba(0,0,0,0.88) !important; }
-.dark-band-heading em { color: var(--accent) !important; opacity: 1 !important; }
-.dark-band-body { color: rgba(0,0,0,0.5) !important; }
+/* Buttons on dark bg */
+.btn { border-color: #e8e8e6 !important; color: #e8e8e6 !important; }
+.btn:hover { background: #e8e8e6 !important; color: #0d0d0d !important; }
+.btn-ghost { border-color: #303030 !important; color: #666 !important; }
+.btn-ghost:hover { border-color: #e8e8e6 !important; color: #e8e8e6 !important; }
+
+/* Featured badge: green bg + dark text (ink is now light) */
+.featured-badge { color: #0d0d0d !important; }
+
+/* Ticker — sits in --ink bg (warm off-white) */
+.ticker { border-top: 1px solid #d4d0c8 !important; border-bottom: 1px solid #d4d0c8 !important; }
+.ticker-inner { color: rgba(0,0,0,0.55) !important; }
+.ticker-dot { background: rgba(0,0,0,0.2) !important; opacity: 1 !important; }
+.ticker-dot-b { background: var(--accent) !important; }
+
+/* Dark band — sits in --ink bg (warm off-white) */
+.dark-band {
+  border-top: 1px solid #d4d0c8 !important;
+  border-bottom: 1px solid #d4d0c8 !important;
+}
 .dark-band::before {
   background-image: repeating-linear-gradient(
     -45deg,
     transparent, transparent 40px,
-    rgba(0,0,0,0.025) 40px, rgba(0,0,0,0.025) 41px
+    rgba(0,0,0,0.03) 40px, rgba(0,0,0,0.03) 41px
   ) !important;
 }
-.ticker-inner { color: rgba(0,0,0,0.65) !important; }
-.ticker-dot { background: rgba(0,0,0,0.25) !important; }
-.ticker-dot-b { background: var(--accent) !important; }
+.dark-band-heading { color: rgba(0,0,0,0.82) !important; }
+.dark-band-heading em { color: var(--accent) !important; opacity: 1 !important; }
+.dark-band-body { color: rgba(0,0,0,0.45) !important; }
+.btn-inv {
+  border-color: rgba(0,0,0,0.25) !important;
+  color: rgba(0,0,0,0.75) !important;
+}
+.btn-inv:hover {
+  background: rgba(0,0,0,0.07) !important;
+  color: rgba(0,0,0,0.9) !important;
+}
 
-/* Footer: now light */
-footer { color: rgba(0,0,0,0.45) !important; }
-.footer-logo { color: rgba(0,0,0,0.88) !important; }
+/* Footer — sits in --ink bg (warm off-white) */
+footer {
+  border-top: 1px solid #d4d0c8 !important;
+  color: rgba(0,0,0,0.4) !important;
+}
+.footer-logo { color: rgba(0,0,0,0.82) !important; }
 
-/* Buttons on dark bg */
-.btn { border-color: #eeeeee !important; color: #eeeeee !important; }
-.btn:hover { background: #eeeeee !important; color: #0f0f0f !important; }
-.btn-inv { border-color: rgba(0,0,0,0.3) !important; color: rgba(0,0,0,0.8) !important; }
-.btn-inv:hover { background: rgba(0,0,0,0.08) !important; }
+/* Cross-hatch on contact section: make lines visible on dark bg */
+.home-contact-left::before {
+  background-image:
+    linear-gradient(#2a2a2a 1px, transparent 1px),
+    linear-gradient(90deg, #2a2a2a 1px, transparent 1px) !important;
+  opacity: 0.6 !important;
+}
 
-/* Section label line color stays green */
+/* Section label stays readable */
+.section-label { color: #666 !important; }
 .section-label::before { background: var(--accent) !important; }
+
+/* Upcoming row hover — more visible on dark */
+.upcoming-row:hover { background: #181818 !important; }
 {% endblock %}
