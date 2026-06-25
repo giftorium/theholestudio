@@ -24,6 +24,15 @@
 
     html { scroll-behavior: smooth; }
 
+    @keyframes dot-drift {
+      0%   { background-position: 0 0, 18px 18px; }
+      100% { background-position: 36px 36px, 54px 54px; }
+    }
+    @keyframes stripe-flow {
+      0%   { background-position: 0 0; }
+      100% { background-position: 41px 41px; }
+    }
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -31,13 +40,12 @@
       font-weight: 300;
       font-size: 16px;
       line-height: 1.7;
-      background-image: repeating-linear-gradient(
-        -18deg,
-        transparent,
-        transparent 30px,
-        rgba(0,0,0,0.038) 30px,
-        rgba(0,0,0,0.038) 31px
-      );
+      background-image:
+        radial-gradient(circle, rgba(0,0,0,0.09) 1px, transparent 1px),
+        radial-gradient(circle, rgba(0,0,0,0.045) 1.8px, transparent 1.8px);
+      background-size: 36px 36px, 72px 72px;
+      background-position: 0 0, 18px 18px;
+      animation: dot-drift 22s linear infinite;
     }
 
     /* ── NAV ── */
@@ -115,8 +123,13 @@
     footer::before {
       content: '';
       position: absolute; inset: 0; pointer-events: none;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
-      background-size: 24px 24px;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent, transparent 28px,
+        rgba(255,255,255,0.065) 28px,
+        rgba(255,255,255,0.065) 29px
+      );
+      animation: stripe-flow 4s linear infinite;
     }
     footer > * { position: relative; z-index: 1; }
     .footer-logo {

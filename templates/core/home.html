@@ -12,18 +12,8 @@
     position: relative; overflow: hidden;
     border-bottom: 1px solid var(--border);
   }
-  /* stronger diagonal on hero — same angle as body, amplified */
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0; pointer-events: none;
-    background-image: repeating-linear-gradient(
-      -18deg,
-      transparent,
-      transparent 24px,
-      rgba(0,0,0,0.07) 24px,
-      rgba(0,0,0,0.07) 25px
-    );
-  }
+  /* hero lets body dot pattern show through — no extra ::before needed */
+  .hero::before { display: none; }
   .hero-top {
     position: relative; z-index: 1;
     display: flex; justify-content: space-between; align-items: flex-start;
@@ -144,7 +134,7 @@
     display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;
     position: relative; overflow: hidden;
   }
-  /* diagonal stripe pattern on dark band — visible white */
+  /* animated diagonal stripes on dark band */
   .dark-band::before {
     content: '';
     position: absolute; inset: 0; pointer-events: none;
@@ -155,6 +145,7 @@
       rgba(255,255,255,0.065) 28px,
       rgba(255,255,255,0.065) 29px
     );
+    animation: stripe-flow 4s linear infinite;
   }
   .dark-band-heading {
     position: relative; z-index: 1;
