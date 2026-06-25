@@ -178,6 +178,24 @@
       .nav-links { display: none; }
     }
 
+    /* ── ATMOSPHERE OVERLAYS ── */
+    @keyframes vignette-pulse {
+      0%, 100% { opacity: 0.72; }
+      50%       { opacity: 1; }
+    }
+    .pattern-overlay {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background-image:
+        repeating-linear-gradient( 45deg, rgba(0,0,0,0.06) 0, rgba(0,0,0,0.06) 1px, transparent 0, transparent 100%),
+        repeating-linear-gradient(-45deg, rgba(0,0,0,0.06) 0, rgba(0,0,0,0.06) 1px, transparent 0, transparent 100%);
+      background-size: 10px 10px;
+    }
+    .vignette-overlay {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none;
+      background: radial-gradient(ellipse 90% 72% at 50% 38%, transparent 38%, rgba(0,0,0,0.30) 100%);
+      animation: vignette-pulse 8s ease-in-out infinite;
+    }
+
     {% block extra_css %}{% endblock %}
   </style>
 </head>
@@ -198,6 +216,9 @@
     <li><a href="/contact/" {% if request.resolver_match.url_name == 'contact' %}class="active"{% endif %}>Contact</a></li>
   </ul>
 </nav>
+
+<div class="pattern-overlay" aria-hidden="true"></div>
+<div class="vignette-overlay" aria-hidden="true"></div>
 
 {% if messages %}
   {% for msg in messages %}
