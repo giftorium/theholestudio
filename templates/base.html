@@ -24,10 +24,7 @@
 
     html { scroll-behavior: smooth; }
 
-    @keyframes dot-drift {
-      0%   { background-position: 0 0, 18px 18px; }
-      100% { background-position: 36px 36px, 54px 54px; }
-    }
+    :root { --bx: 0px; --by: 0px; }
     @keyframes stripe-flow {
       0%   { background-position: 0 0; }
       100% { background-position: 41px 41px; }
@@ -41,11 +38,18 @@
       font-size: 16px;
       line-height: 1.7;
       background-image:
-        radial-gradient(circle, rgba(0,0,0,0.09) 1px, transparent 1px),
-        radial-gradient(circle, rgba(0,0,0,0.045) 1.8px, transparent 1.8px);
-      background-size: 36px 36px, 72px 72px;
-      background-position: 0 0, 18px 18px;
-      animation: dot-drift 22s linear infinite;
+        radial-gradient(circle, rgba(0,0,0,0.10) 1px, transparent 1px),
+        radial-gradient(circle, rgba(0,0,0,0.055) 1.8px, transparent 1.8px),
+        radial-gradient(circle, rgba(0,0,0,0.035) 2.5px, transparent 2.5px),
+        radial-gradient(circle, rgba(0,0,0,0.07) 0.7px, transparent 0.7px),
+        radial-gradient(circle, rgba(0,0,0,0.02) 3px, transparent 3px);
+      background-size: 36px 36px, 72px 72px, 108px 108px, 24px 24px, 144px 144px;
+      background-position:
+        var(--bx) var(--by),
+        calc(var(--bx) + 18px) calc(var(--by) + 18px),
+        calc(var(--bx) + 36px) calc(var(--by) + 36px),
+        calc(var(--bx) + 12px) calc(var(--by) + 12px),
+        calc(var(--bx) + 54px) calc(var(--by) + 54px);
     }
 
     /* ── NAV ── */
@@ -226,6 +230,49 @@
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
   setTimeout(() => { document.querySelectorAll('.toast').forEach(t => t.remove()); }, 4000);
+
+  // Dot field: drift + organic shiver
+  (function() {
+    const root = document.documentElement;
+    const period = 36; // matches layer-1 background-size
+    const speed = period / 22; // px/s → 22-second cycle
+
+    function tick(ts) {
+      const t = ts / 1000;
+      const drift = (t * speed) % period;
+      const shX = Math.sin(t * 2.3) * 0.55 + Math.sin(t * 6.1) * 0.22;
+      const shY = Math.cos(t * 1.9) * 0.55 + Math.cos(t * 4.7) * 0.22;
+      root.style.setProperty('--bx', (drift + shX) + 'px');
+      root.style.setProperty('--by', (drift + shY) + 'px');
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  // Scroll-reveal: sections fade in from slightly below
+  (function() {
+    var targets = document.querySelectorAll(
+      '.featured-grid > *, .upcoming-row, .dark-band, .home-contact > *, ' +
+      '.founder-card, .about-story, .about-values, .land-ack, .about-cta, ' +
+      '.productions-section, .production-card, .contact-left, .contact-right'
+    );
+    if (!targets.length || !window.IntersectionObserver) return;
+    targets.forEach(function(el) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(18px)';
+      el.style.transition = 'opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1)';
+    });
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.06 });
+    targets.forEach(function(el) { obs.observe(el); });
+  })();
 </script>
 
 </body>
