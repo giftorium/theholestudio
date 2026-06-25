@@ -11,7 +11,7 @@
 
   /* ── LEFT ── */
   .contact-left {
-    padding: 2rem 2.5rem;
+    padding: 1.5rem 2rem;
     display: flex; flex-direction: column;
     border-right: 1px solid var(--border);
   }
@@ -44,7 +44,7 @@
 
   /* ── RIGHT ── */
   .contact-right {
-    padding: 2rem 2.5rem;
+    padding: 1.5rem 2rem;
     background: var(--surface);
     display: flex; flex-direction: column;
   }
@@ -90,25 +90,22 @@
   <div class="contact-left">
     <p class="section-label">Contact</p>
     <h1 class="contact-title">Get<br>in<br><em>Touch</em></h1>
-    <p class="contact-intro">
-      We're interested in hearing from presenters, festivals, venues, and press.
-      Fill out the form and we'll get back to you shortly.
-    </p>
+    <p class="contact-intro">{{ contact_page.intro_text }}</p>
     <div class="contact-types">
       <div class="contact-type">
         <span class="contact-type-label">Booking</span>
-        <span class="contact-type-desc">Festivals, venues, and presenters interested in hosting a production or commissioning new work.</span>
+        <span class="contact-type-desc">{{ contact_page.booking_desc }}</span>
       </div>
       <div class="contact-type">
         <span class="contact-type-label">Press</span>
-        <span class="contact-type-desc">Media inquiries, interviews, and press accreditation for upcoming performances.</span>
+        <span class="contact-type-desc">{{ contact_page.press_desc }}</span>
       </div>
       <div class="contact-type">
         <span class="contact-type-label">General</span>
-        <span class="contact-type-desc">Collaborations, residencies, and anything in between.</span>
+        <span class="contact-type-desc">{{ contact_page.general_desc }}</span>
       </div>
     </div>
-    <p class="contact-location">Toronto, Canada</p>
+    <p class="contact-location">{{ contact_page.location }}</p>
   </div>
 
   <div class="contact-right">

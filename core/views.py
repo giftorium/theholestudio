@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Production, ContactMessage, Founder, HomePage, HomePhoto, AboutPage
+from .models import Production, ContactMessage, Founder, HomePage, HomePhoto, AboutPage, ContactPage
 from .forms import ContactForm
 
 
@@ -48,6 +48,7 @@ def about(request):
 
 
 def contact(request):
+    contact_page = ContactPage.get()
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -61,4 +62,4 @@ def contact(request):
             return redirect('contact')
     else:
         form = ContactForm()
-    return render(request, 'core/contact.html', {'form': form})
+    return render(request, 'core/contact.html', {'form': form, 'contact_page': contact_page})

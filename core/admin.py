@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Production, CastMember, ProductionPhoto, ProductionVideo, ContactMessage, Founder, HomePage, HomePhoto, AboutPage
+from .models import Production, CastMember, ProductionPhoto, ProductionVideo, ContactMessage, Founder, HomePage, HomePhoto, AboutPage, ContactPage
 
 
 class CastMemberInline(admin.TabularInline):
@@ -114,6 +114,21 @@ class AboutPageAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return not AboutPage.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(ContactPage)
+class ContactPageAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Introduction', {'fields': ['intro_text']}),
+        ('Contact Types', {'fields': ['booking_desc', 'press_desc', 'general_desc']}),
+        ('Location', {'fields': ['location']}),
+    ]
+
+    def has_add_permission(self, request):
+        return not ContactPage.objects.exists()
 
     def has_delete_permission(self, request, obj=None):
         return False

@@ -169,6 +169,30 @@ class Founder(models.Model):
         return self.name
 
 
+class ContactPage(models.Model):
+    intro_text = models.TextField(blank=True, default="We're interested in hearing from presenters, festivals, venues, and press. Fill out the form and we'll get back to you shortly.")
+    booking_desc = models.TextField(blank=True, default="Festivals, venues, and presenters interested in hosting a production or commissioning new work.")
+    press_desc = models.TextField(blank=True, default="Media inquiries, interviews, and press accreditation for upcoming performances.")
+    general_desc = models.TextField(blank=True, default="Collaborations, residencies, and anything in between.")
+    location = models.CharField(max_length=200, blank=True, default="Toronto, Canada")
+
+    class Meta:
+        verbose_name = 'Contact Page'
+        verbose_name_plural = 'Contact Page'
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def get(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def __str__(self):
+        return 'Contact Page'
+
+
 SUBJECT_CHOICES = [
     ('general', 'General'),
     ('booking', 'Booking'),

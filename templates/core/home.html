@@ -6,19 +6,23 @@
 {% block extra_css %}
   /* ── HERO ── */
   .hero {
-    padding: 0 2.5rem 2rem;
-    padding-top: 5.5rem;
-    display: flex; flex-direction: column; justify-content: flex-start; gap: 1.5rem;
+    padding: 0 2rem 1.5rem;
+    padding-top: 5rem;
+    display: flex; flex-direction: column; justify-content: flex-start; gap: 1rem;
     position: relative; overflow: hidden;
     border-bottom: 1px solid var(--border);
   }
-  /* dot-grid pattern — visible but not aggressive on light bg */
+  /* stronger diagonal on hero — same angle as body, amplified */
   .hero::before {
     content: '';
     position: absolute; inset: 0; pointer-events: none;
-    background-image: radial-gradient(circle, rgba(0,0,0,0.13) 1.2px, transparent 1.2px);
-    background-size: 36px 36px;
-    opacity: 1;
+    background-image: repeating-linear-gradient(
+      -18deg,
+      transparent,
+      transparent 24px,
+      rgba(0,0,0,0.07) 24px,
+      rgba(0,0,0,0.07) 25px
+    );
   }
   .hero-top {
     position: relative; z-index: 1;
@@ -67,11 +71,11 @@
 
   /* ── FEATURED ── */
   .featured {
-    padding: 2rem 2.5rem;
+    padding: 1.5rem 2rem;
     border-bottom: 1px solid var(--border);
   }
   .featured-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; margin-top: 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; margin-top: 0.75rem;
   }
   .featured-cover {
     aspect-ratio: 3/4; background: var(--surface);
@@ -114,10 +118,10 @@
 
   /* ── UPCOMING LIST ── */
   .upcoming-section {
-    padding: 2rem 2.5rem;
+    padding: 1.5rem 2rem;
     border-bottom: 1px solid var(--border);
   }
-  .upcoming-list { margin-top: 1.5rem; }
+  .upcoming-list { margin-top: 1rem; }
   .upcoming-row {
     display: grid; grid-template-columns: 5rem 1fr 1fr auto;
     align-items: center; gap: 2rem;
@@ -136,7 +140,7 @@
   /* ── DARK BAND ── */
   .dark-band {
     background: var(--ink); color: var(--bg);
-    padding: 2.5rem 2.5rem;
+    padding: 2rem 2rem;
     display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;
     position: relative; overflow: hidden;
   }
@@ -173,7 +177,7 @@
     display: grid; grid-template-columns: 1fr 1fr;
   }
   .home-contact-left {
-    padding: 3rem 2.5rem;
+    padding: 2rem 2rem;
     border-right: 1px solid var(--border);
     position: relative; overflow: hidden;
   }
@@ -195,7 +199,7 @@
   }
   .home-contact-heading em { font-style: italic; color: var(--accent); display: block; }
   .home-contact-right {
-    padding: 3rem 2.5rem;
+    padding: 2rem 2rem;
     display: flex; flex-direction: column; justify-content: center; gap: 2.5rem;
     background: var(--surface);
   }
