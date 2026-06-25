@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Production, ContactMessage, Founder, HomePage, HomePhoto
+from .models import Production, ContactMessage, Founder, HomePage, HomePhoto, AboutPage
 from .forms import ContactForm
 
 
@@ -43,7 +43,8 @@ def production_detail(request, slug):
 
 def about(request):
     founders = Founder.objects.all()
-    return render(request, 'core/about.html', {'founders': founders})
+    about_page = AboutPage.get()
+    return render(request, 'core/about.html', {'founders': founders, 'about_page': about_page})
 
 
 def contact(request):

@@ -187,45 +187,35 @@
     <h1 class="about-title">The<br><em>Hole</em></h1>
   </div>
   <div class="about-header-right">
-    <blockquote class="about-header-quote">
-      "We believe that every project demands its own form."
-    </blockquote>
-    <p class="about-header-sub">
-      the– hOle –studio is an independent dance, performance, and film company founded by Iranian artists Jaber Ramezan and Negar Nemati, based in Toronto. The studio develops original works that move between disciplines, cultures, and performance traditions.
-    </p>
+    <blockquote class="about-header-quote">{{ about_page.header_quote }}</blockquote>
+    <p class="about-header-sub">{{ about_page.header_intro }}</p>
   </div>
 </header>
 
 <section class="about-story">
   <div class="about-story-sidebar">
     <div class="sidebar-stat">
-      <div class="sidebar-stat-num">15+</div>
-      <div class="sidebar-stat-label">Years of Practice</div>
+      <div class="sidebar-stat-num">{{ about_page.stat1_num }}</div>
+      <div class="sidebar-stat-label">{{ about_page.stat1_label }}</div>
     </div>
     <div class="sidebar-stat">
-      <div class="sidebar-stat-num">3</div>
-      <div class="sidebar-stat-label">Productions</div>
+      <div class="sidebar-stat-num">{{ about_page.stat2_num }}</div>
+      <div class="sidebar-stat-label">{{ about_page.stat2_label }}</div>
     </div>
     <div class="sidebar-stat">
-      <div class="sidebar-stat-num">3</div>
-      <div class="sidebar-stat-label">Countries</div>
+      <div class="sidebar-stat-num">{{ about_page.stat3_num }}</div>
+      <div class="sidebar-stat-label">{{ about_page.stat3_label }}</div>
     </div>
   </div>
   <div class="about-story-body">
     <p class="section-label">Who We Are</p>
-    <div class="story-text">
-      <p>the– hOle –studio is an independent dance, performance, and film company founded by Iranian artists Jaber Ramezan and Negar Nemati. Building on more than fifteen years of artistic practice across theatre, dance, film, and design, the studio develops original works that move between disciplines, cultures, and performance traditions.</p>
-      <p>Rooted in the experimental spirit of Tehran's independent arts scene and shaped by international collaborations across Europe and North America, the company brings together artists, performers, filmmakers, and designers to create contemporary works for stage and screen.</p>
-      <p>Led by Artistic Director Jaber Ramezan, the studio is driven by a search for new forms of performance and storytelling. Its projects emerge through research, collaboration, and experimentation, often crossing the boundaries between theatre, choreography, cinema, and visual design.</p>
-    </div>
+    <div class="story-text">{{ about_page.story_body|linebreaks }}</div>
   </div>
 </section>
 
 <div class="land-ack">
   <p class="section-label">Land Acknowledgement</p>
-  <p class="land-ack-text">
-    the– hOle –studio acknowledges that our work takes place on the traditional territories of many Indigenous Nations, including the Wendat, the Anishinaabeg, the Mississaugas of the Credit First Nation, and the Haudenosaunee Confederacy. We recognize their enduring presence, stewardship, and relationships to this land, and we are committed to ongoing learning, respect, and meaningful dialogue.
-  </p>
+  <p class="land-ack-text">{{ about_page.land_acknowledgement }}</p>
 </div>
 
 <section class="founders">
@@ -272,24 +262,24 @@
   <div class="values-grid">
     <div class="value-item">
       <div class="value-num">01</div>
-      <p class="value-label">Form First</p>
-      <p class="value-text">We believe that every project demands its own form. Rather than working within fixed genres or disciplines, we approach creation as a process of research and discovery.</p>
+      <p class="value-label">{{ about_page.value1_label }}</p>
+      <p class="value-text">{{ about_page.value1_text }}</p>
     </div>
     <div class="value-item">
       <div class="value-num">02</div>
-      <p class="value-label">Memory &amp; the Body</p>
-      <p class="value-text">Influenced by contemporary performance, choreography, cinema, and documentary practices, we are interested in memory, spectatorship, the body, and the ways personal experience intersects with larger social and political realities.</p>
+      <p class="value-label">{{ about_page.value2_label }}</p>
+      <p class="value-text">{{ about_page.value2_text }}</p>
     </div>
     <div class="value-item">
       <div class="value-num">03</div>
-      <p class="value-label">International Exchange</p>
-      <p class="value-text">Through performances, films, workshops, and artistic laboratories, the studio creates spaces for encounter, exchange, and creative risk-taking, connecting contemporary artistic voices across different geographies, disciplines, and communities.</p>
+      <p class="value-label">{{ about_page.value3_label }}</p>
+      <p class="value-text">{{ about_page.value3_text }}</p>
     </div>
   </div>
 </section>
 
 <section class="about-cta">
-  <h2 class="about-cta-heading">Interested in<br>presenting our <em>work?</em></h2>
+  <h2 class="about-cta-heading">{{ about_page.cta_heading }}</h2>
   <div class="about-cta-actions">
     <a href="{% url 'contact' %}" class="btn">Get in Touch</a>
     <a href="{% url 'productions' %}" class="btn-ghost">View Productions</a>

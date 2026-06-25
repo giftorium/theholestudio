@@ -94,6 +94,53 @@ class HomePage(models.Model):
         return 'Home Page'
 
 
+class AboutPage(models.Model):
+    # Header
+    header_quote = models.CharField(max_length=300, default='"We believe that every project demands its own form."')
+    header_intro = models.TextField(blank=True, default='the– hOle –studio is an independent dance, performance, and film company founded by Iranian artists Jaber Ramezan and Negar Nemati, based in Toronto. The studio develops original works that move between disciplines, cultures, and performance traditions.')
+
+    # Stats
+    stat1_num   = models.CharField(max_length=20, default='15+')
+    stat1_label = models.CharField(max_length=100, default='Years of Practice')
+    stat2_num   = models.CharField(max_length=20, default='3')
+    stat2_label = models.CharField(max_length=100, default='Productions')
+    stat3_num   = models.CharField(max_length=20, default='3')
+    stat3_label = models.CharField(max_length=100, default='Countries')
+
+    # Story
+    story_body = models.TextField(blank=True, default='the– hOle –studio is an independent dance, performance, and film company founded by Iranian artists Jaber Ramezan and Negar Nemati. Building on more than fifteen years of artistic practice across theatre, dance, film, and design, the studio develops original works that move between disciplines, cultures, and performance traditions.\n\nRooted in the experimental spirit of Tehran\'s independent arts scene and shaped by international collaborations across Europe and North America, the company brings together artists, performers, filmmakers, and designers to create contemporary works for stage and screen.\n\nLed by Artistic Director Jaber Ramezan, the studio is driven by a search for new forms of performance and storytelling. Its projects emerge through research, collaboration, and experimentation, often crossing the boundaries between theatre, choreography, cinema, and visual design.')
+
+    # Land acknowledgement
+    land_acknowledgement = models.TextField(blank=True, default='the– hOle –studio acknowledges that our work takes place on the traditional territories of many Indigenous Nations, including the Wendat, the Anishinaabeg, the Mississaugas of the Credit First Nation, and the Haudenosaunee Confederacy. We recognize their enduring presence, stewardship, and relationships to this land, and we are committed to ongoing learning, respect, and meaningful dialogue.')
+
+    # Values
+    value1_label = models.CharField(max_length=100, default='Form First')
+    value1_text  = models.TextField(blank=True, default='We believe that every project demands its own form. Rather than working within fixed genres or disciplines, we approach creation as a process of research and discovery.')
+    value2_label = models.CharField(max_length=100, default='Memory & the Body')
+    value2_text  = models.TextField(blank=True, default='Influenced by contemporary performance, choreography, cinema, and documentary practices, we are interested in memory, spectatorship, the body, and the ways personal experience intersects with larger social and political realities.')
+    value3_label = models.CharField(max_length=100, default='International Exchange')
+    value3_text  = models.TextField(blank=True, default='Through performances, films, workshops, and artistic laboratories, the studio creates spaces for encounter, exchange, and creative risk-taking, connecting contemporary artistic voices across different geographies, disciplines, and communities.')
+
+    # CTA
+    cta_heading = models.CharField(max_length=200, default='Interested in presenting our work?')
+
+    class Meta:
+        verbose_name = 'About Page'
+        verbose_name_plural = 'About Page'
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def get(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def __str__(self):
+        return 'About Page'
+
+
 class HomePhoto(models.Model):
     image = models.ImageField(upload_to='home/strip/')
     caption = models.CharField(max_length=200, blank=True)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Production, CastMember, ProductionPhoto, ProductionVideo, ContactMessage, Founder, HomePage, HomePhoto
+from .models import Production, CastMember, ProductionPhoto, ProductionVideo, ContactMessage, Founder, HomePage, HomePhoto, AboutPage
 
 
 class CastMemberInline(admin.TabularInline):
@@ -92,6 +92,30 @@ class HomePhotoAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" style="height:60px;object-fit:cover;">', obj.image.url)
         return '—'
     photo_preview.short_description = 'Preview'
+
+
+@admin.register(AboutPage)
+class AboutPageAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Header', {'fields': ['header_quote', 'header_intro']}),
+        ('Stats', {'fields': [
+            ('stat1_num', 'stat1_label'),
+            ('stat2_num', 'stat2_label'),
+            ('stat3_num', 'stat3_label'),
+        ]}),
+        ('Who We Are', {'fields': ['story_body']}),
+        ('Land Acknowledgement', {'fields': ['land_acknowledgement']}),
+        ('Our Approach — Value 1', {'fields': ['value1_label', 'value1_text']}),
+        ('Our Approach — Value 2', {'fields': ['value2_label', 'value2_text']}),
+        ('Our Approach — Value 3', {'fields': ['value3_label', 'value3_text']}),
+        ('CTA', {'fields': ['cta_heading']}),
+    ]
+
+    def has_add_permission(self, request):
+        return not AboutPage.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(ContactMessage)
