@@ -172,16 +172,6 @@
     border-right: 1px solid var(--border);
     position: relative; overflow: hidden;
   }
-  /* cross-hatch pattern — subtle dark on light */
-  .home-contact-left::before {
-    content: '';
-    position: absolute; inset: 0; pointer-events: none;
-    background-image:
-      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
-    background-size: 48px 48px;
-    opacity: 1;
-  }
   .home-contact-heading {
     position: relative; z-index: 1;
     font-family: var(--display);
