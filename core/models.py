@@ -142,6 +142,7 @@ class AboutPage(models.Model):
 
 
 class HomePhoto(models.Model):
+    home_page = models.ForeignKey('HomePage', on_delete=models.CASCADE, related_name='photos', default=1)
     image = models.ImageField(upload_to='home/strip/')
     caption = models.CharField(max_length=200, blank=True)
     order = models.PositiveIntegerField(default=0)
