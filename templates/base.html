@@ -180,19 +180,21 @@
 
     /* ── ATMOSPHERE OVERLAYS ── */
     @keyframes vignette-pulse {
-      0%, 100% { opacity: 0.72; }
+      0%, 100% { opacity: 0.85; }
       50%       { opacity: 1; }
     }
     .pattern-overlay {
-      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none;
       background-image:
-        repeating-linear-gradient( 45deg, rgba(0,0,0,0.06) 0, rgba(0,0,0,0.06) 1px, transparent 0, transparent 100%),
-        repeating-linear-gradient(-45deg, rgba(0,0,0,0.06) 0, rgba(0,0,0,0.06) 1px, transparent 0, transparent 100%);
-      background-size: 10px 10px;
+        linear-gradient(rgba(0,0,0,0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.10) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+      background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
     }
     .vignette-overlay {
-      position: fixed; inset: 0; z-index: 2; pointer-events: none;
-      background: radial-gradient(ellipse 90% 72% at 50% 38%, transparent 38%, rgba(0,0,0,0.30) 100%);
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2; pointer-events: none;
+      background: radial-gradient(ellipse 85% 70% at 50% 38%, transparent 35%, rgba(0,0,0,0.48) 100%);
       animation: vignette-pulse 8s ease-in-out infinite;
     }
 
